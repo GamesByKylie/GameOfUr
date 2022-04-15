@@ -27,6 +27,11 @@ public class MenuButtons : MonoBehaviour
     public void OpenSettings()
     {
         ToggleScreen(0, true);
+        InitializeSettings();
+    }
+
+    public void InitializeSettings()
+    {
         foreach (var s in settingsOptions)
         {
             s.SetValueFromPref();

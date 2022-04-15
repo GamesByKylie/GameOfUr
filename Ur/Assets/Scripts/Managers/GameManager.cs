@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
 
             //Going to add a bit of artificial load time in here so you can see the "loading" screen instead of it just flashing for an instant
             //We want to minimize flashing images, obviously, and this way it's also easier to tell that it's a loading screen
+            //This will probably be replaced by something nicer looking later when I learn how to do that
             instance.loadingText.text = "Loading...";
             yield return new WaitForSeconds(0.25f);
             instance.loadingText.text = "";

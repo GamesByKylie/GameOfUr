@@ -25,6 +25,7 @@ public class UrGameController : TavernaGameControllerParent
     public GameObject startUI;
     public TextDisplayBox displayBox;
     public GameObject modalBlocker;
+    public GameObject pauseMenu;
 	[Range(0f, 1f)]
 	public float bragToInsultRatio = 0.66f;
 	public Button rollDiceButton;
@@ -49,6 +50,7 @@ public class UrGameController : TavernaGameControllerParent
 	private bool allowPlayerMove = false;
 
 	private UrDiceRoller dice;
+    private MenuButtons menuButtons;
 	[HideInInspector] public UrAIController enemyAI;
 
     private int turnCount = 1;
@@ -68,6 +70,7 @@ public class UrGameController : TavernaGameControllerParent
 		enemyAI = GetComponent<UrAIController>();
 		dice = GetComponent<UrDiceRoller>();
         gm = GameObject.FindWithTag("Master").GetComponent<GameManager>();
+        menuButtons = GetComponent<MenuButtons>();
 
         playerPathLine.SetActive(false);
         enemyPathLine.SetActive(false);
@@ -86,8 +89,39 @@ public class UrGameController : TavernaGameControllerParent
 	}
 
     public override void PauseMinigame() {
-		base.PauseMinigame();
+        Time.timeScale = 0f;
+        pauseMenu.SetActive(true);
+        modalBlocker.SetActive(true);
+        menuButtons.InitializeSettings();
 	}
+
+    public override void UnpauseMinigame()
+    {
+        Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
+        modalBlocker.SetActive(false);
+    }
+
+    public void RestartScene()
+    {
+        GameManager.LoadGamePlay();
+    }
+
+    public void ExitGameplay()
+    {
+        GameManager.LoadMainMenu();
+    }
+
+    public void RestartTutorial()
+    {
+        //Whoops, how are we going to show all the nice little animations when we don't know the state of the board?
+        //We don't want pieces on top of each other, so we might need to temporarily turn off all the real pieces
+        //And then turn on some example dummy pieces that go away once the tutorial is completed
+        //And what if this happens mid-turn while the enemy is moving?
+        //We don't want the player to interrupt either turn, it could be used for exploits maybe
+        //So grey it out while it's not their turn, maybe?
+        //Also timescale has to be set to 1 so the animations will run!
+    }
 
     private void Update()
     {

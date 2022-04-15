@@ -18,7 +18,7 @@ public class TavernaGameControllerParent : MonoBehaviour
 		Time.timeScale = 0;
 	}
 
-	public void UnpauseMinigame() {
+	public virtual void UnpauseMinigame() {
 		//mgScreen.gameObject.SetActive(false);
 		Time.timeScale = 1;
 	}
