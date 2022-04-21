@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UrGameController : TavernaGameControllerParent
+public class UrGameController : MonoBehaviour
 {
-	[Header("Ur Variables")]
-	public Vector2Int rewardAmts;
-
 	[Header("Player")]
 	public string playerTag;
 	public List<UrPiece> playerPieces;
@@ -17,6 +14,7 @@ public class UrGameController : TavernaGameControllerParent
 
 	[Header("Enemy")]
 	public string enemyTag;
+	[HideInInspector] public UrAIController enemyAI;
 	public List<UrGameTile> enemyBoardPositions;
 	public GameObject enemyPathLine;
 
@@ -26,8 +24,8 @@ public class UrGameController : TavernaGameControllerParent
     public TextDisplayBox displayBox;
     public GameObject modalBlocker;
     public GameObject pauseMenu;
-	[Range(0f, 1f)]
-	public float bragToInsultRatio = 0.66f;
+	//[Range(0f, 1f)]
+	//public float bragToInsultRatio = 0.66f;
 	public Button rollDiceButton;
     public Text turnText;
 	public Text alertText;
@@ -36,6 +34,7 @@ public class UrGameController : TavernaGameControllerParent
 
 	[Header("Audio")]
 	public AudioSource sfxAud;
+    public AudioSource moveSound;
 	public AudioClip[] rosetteSounds;
 	public AudioClip[] captureSounds;
 	public AudioClip[] lostTurnSounds;
@@ -51,7 +50,6 @@ public class UrGameController : TavernaGameControllerParent
 
 	private UrDiceRoller dice;
     private MenuButtons menuButtons;
-	[HideInInspector] public UrAIController enemyAI;
 
     private int turnCount = 1;
 
@@ -84,22 +82,35 @@ public class UrGameController : TavernaGameControllerParent
         displayBox.gameObject.SetActive(false);
 
         //ask if they want a tutorial
-        modalBlocker.SetActive(true);
-        startUI.SetActive(true);
+        if (!PlayerPrefs.HasKey("played_before"))
+        {
+            Debug.Log("Player's first time - tutorial offer");
+            modalBlocker.SetActive(true);
+            startUI.SetActive(true);
+            PlayerPrefs.SetString("played_before", "true");
+        }
+
 	}
 
-    public override void PauseMinigame() {
+    public void PauseMinigame() {
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
         modalBlocker.SetActive(true);
         menuButtons.InitializeSettings();
 	}
 
-    public override void UnpauseMinigame()
+    public void UnpauseMinigame()
     {
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
         modalBlocker.SetActive(false);
+    }
+
+    public void PlayMoveSound()
+    {
+        moveSound.volume = SettingsManager.MasterVolume * SettingsManager.SFXVolume;
+        moveSound.pitch = Random.Range(0.7f, 1.1f);
+        moveSound.Play();
     }
 
     public void RestartScene()
@@ -379,37 +390,38 @@ public class UrGameController : TavernaGameControllerParent
 		o.effectColor = baseOutlineColor;
 	}
 
-	public void TriggerBark(bool isPlayer, List<string> triggerType, bool autoTrigger = false) {
-		float rand = Random.Range(0f, 1f);
+	//public void TriggerBark(bool isPlayer, List<string> triggerType, bool autoTrigger = false)
+ //   {
+	//	float rand = Random.Range(0f, 1f);
 
-		//If we want this to disregard the random element, just manually set it to 0 so it's always below barkChance
-		if (autoTrigger) {
-			rand = 0f;
-		}
+	//	//If we want this to disregard the random element, just manually set it to 0 so it's always below barkChance
+	//	if (autoTrigger) {
+	//		rand = 0f;
+	//	}
 
-		//If you've actually triggered one, you can either do the corresponding brag or an insult
-		if (rand <= barkChance) {
-			if (Random.Range(0f, 1f) <= bragToInsultRatio || autoTrigger) {
-				//If the player did the cool thing, the player brags
-				if (isPlayer) {
-					playerBarks.DisplayFromList(triggerType);
-				}
-				//Otherwise, the enemy brags
-				else {
-					enemyBarks.DisplayFromList(triggerType);
-				}
-			}
-			else {
-				//If you're going to do the insult instead, it's the opposite
-				if (isPlayer) {
-					enemyBarks.DisplayInsult();
-				}
-				else {
-					playerBarks.DisplayInsult();
-				}
-			}
-		}
-	}
+	//	//If you've actually triggered one, you can either do the corresponding brag or an insult
+	//	if (rand <= barkChance) {
+	//		if (Random.Range(0f, 1f) <= bragToInsultRatio || autoTrigger) {
+	//			//If the player did the cool thing, the player brags
+	//			if (isPlayer) {
+	//				playerBarks.DisplayFromList(triggerType);
+	//			}
+	//			//Otherwise, the enemy brags
+	//			else {
+	//				enemyBarks.DisplayFromList(triggerType);
+	//			}
+	//		}
+	//		else {
+	//			//If you're going to do the insult instead, it's the opposite
+	//			if (isPlayer) {
+	//				enemyBarks.DisplayInsult();
+	//			}
+	//			else {
+	//				playerBarks.DisplayInsult();
+	//			}
+	//		}
+	//	}
+	//}
 
 	public void PointScored(bool isPlayer, UrPiece c) {
 		if (isPlayer) {
@@ -469,19 +481,7 @@ public class UrGameController : TavernaGameControllerParent
 		rollDiceButton.interactable = false;
 		allowPlayerMove = false;
 
-		//Calculate how much of a reward you get based on how many pieces your opponent still has
-		//Because right now the game is set to 3 pieces each, we can say opponent 1 = min, 2 = middle, 3 = max
-		int reward;
-
-		if (enemyAI.enemyPieces.Count == 1) {
-			reward = rewardAmts.x;
-		}
-		else if (enemyAI.enemyPieces.Count == 2) {
-			reward = Mathf.CeilToInt((rewardAmts.x + rewardAmts.y) / 2.0f);
-		}
-		else {
-			reward = rewardAmts.y;
-		}
+        Debug.Log("You win!");
 	}
 
 	private void LoseGame() 
@@ -489,6 +489,8 @@ public class UrGameController : TavernaGameControllerParent
 		isGameOver = false;
 		rollDiceButton.interactable = false;
 		allowPlayerMove = false;
+
+        Debug.Log("You lose!");
 	}
 
 	public int CurrentRoll {

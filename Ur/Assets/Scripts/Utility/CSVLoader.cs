@@ -164,7 +164,7 @@ public static class CSVLoader
 			}
 			else
             {
-				Debug.Log(filename + " does not exist!");
+				//Debug.Log(filename + " does not exist!");
 			}
 
 			//Debug.Log(Application.dataPath + "/" + filename + ".txt");

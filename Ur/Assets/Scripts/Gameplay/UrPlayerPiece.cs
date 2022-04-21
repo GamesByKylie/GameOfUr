@@ -114,10 +114,10 @@ public class UrPlayerPiece : UrPiece
 					urGC.playerBoardPositions[boardIndex].ClearOccupied();
 				}
 				else {
-					if (!showingBark) {
-						urGC.TriggerBark(true, urGC.gm.urMoveOnText);
-						showingBark = true;
-					}
+					//if (!showingBark) {
+					//	urGC.TriggerBark(true, urGC.gm.urMoveOnText);
+					//	showingBark = true;
+					//}
 
 				}
 				
@@ -126,10 +126,10 @@ public class UrPlayerPiece : UrPiece
 				if (boardIndex < 16 && potentialIndex >= 16) 
 				{
 					FlipPiece();
-					if (!showingBark) {
-						urGC.TriggerBark(true, urGC.gm.urFlipText);
-						showingBark = true;
-					}
+					//if (!showingBark) {
+					//	urGC.TriggerBark(true, urGC.gm.urFlipText);
+					//	showingBark = true;
+					//}
 
 				}
 
@@ -141,10 +141,10 @@ public class UrPlayerPiece : UrPiece
 					captureThisTurn = true;
 					urGC.playerBoardPositions[boardIndex].RemoveCurrentFromBoard();
 					urGC.ShowAlertText("Captured the enemy!");
-					if (!showingBark) {
-						urGC.TriggerBark(true, urGC.gm.urCaptureText);
-						showingBark = true;
-					}
+					//if (!showingBark) {
+					//	urGC.TriggerBark(true, urGC.gm.urCaptureText);
+					//	showingBark = true;
+					//}
 
 					urGC.PlaySoundFX(UrGameController.SoundTrigger.Capture, true);
 				}
@@ -153,7 +153,7 @@ public class UrPlayerPiece : UrPiece
 				//We especially don't want to set the end space to occupied!
 				if (boardIndex == urGC.playerBoardPositions.Count - 1) 
 				{
-					urGC.TriggerBark(true, urGC.gm.urMoveOffText, true);
+					//urGC.TriggerBark(true, urGC.gm.urMoveOffText, true);
 					urGC.PointScored(true, this);
 					urGC.PlaySoundFX(UrGameController.SoundTrigger.OffBoard, true);
 				}
@@ -172,7 +172,7 @@ public class UrPlayerPiece : UrPiece
 					}
 
 					if (!showingBark) {
-						urGC.TriggerBark(true, urGC.gm.urRosetteText);
+						//urGC.TriggerBark(true, urGC.gm.urRosetteText);
 						showingBark = true;
 					}
 
