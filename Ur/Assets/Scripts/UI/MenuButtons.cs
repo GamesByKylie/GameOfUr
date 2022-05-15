@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MenuButtons : MonoBehaviour
 {
     public GameObject modalBlocker;
+    public Dropdown resolutionDropdown;
     public GameObject[] extraScreens;
     public SettingsFromPlayerPrefs[] settingsOptions;
 
@@ -32,6 +33,12 @@ public class MenuButtons : MonoBehaviour
 
     public void InitializeSettings()
     {
+        resolutionDropdown.ClearOptions();
+        foreach (var r in SettingsManager.AvailableResolutions)
+        {
+            resolutionDropdown.options.Add(new Dropdown.OptionData(r.width + "x" + r.height));
+        }
+
         foreach (var s in settingsOptions)
         {
             s.SetValueFromPref();
@@ -84,8 +91,18 @@ public class MenuButtons : MonoBehaviour
         SettingsManager.MusicVolume = volume;
     }
 
+    public void UpdateScreenResolution(Dropdown d)
+    {
+        SettingsManager.ScreenResolution = d.value;
+    }
+
     public void UpdateAnimationsEnabled(bool enabled)
     {
         SettingsManager.AnimationsEnabled = enabled;
+    }
+
+    public void UpdateFullscreen(bool enabled)
+    {
+        SettingsManager.Fullscreen = enabled;
     }
 }
