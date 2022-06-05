@@ -105,4 +105,10 @@ public class MenuButtons : MonoBehaviour
     {
         SettingsManager.Fullscreen = enabled;
     }
+
+    public void ResetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+        SettingsManager.InitializeSettings();
+    }
 }

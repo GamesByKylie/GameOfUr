@@ -19,21 +19,22 @@ public class TextDisplayBox : MonoBehaviour
         rect = GetComponent<RectTransform>();
     }
 
-    private void OnValidate()
-    {
-        messageHolder.sizeDelta = new Vector2(rect.sizeDelta.x - textPadding.x, rect.sizeDelta.y - textPadding.y);
-    }
+    //private void OnValidate()
+    //{
+    //    messageHolder.sizeDelta = new Vector2(rect.sizeDelta.x - textPadding.x, rect.sizeDelta.y - textPadding.y);
+    //}
 
-    public void DisplayMessage(string message, Vector2 size, Vector2 pos)
+    public void DisplayMessage(string message, Vector2 anchorMin, Vector2 anchorMax)
     {
         if (rect == null)
         {
             rect = GetComponent<RectTransform>();
         }
-        rect.anchoredPosition = pos;
-        rect.sizeDelta = size;
+        rect.anchorMin = anchorMin;
+        rect.anchorMax = anchorMax;
+        rect.anchoredPosition = Vector2.zero;
         messageText.text = message;
-        SetPadding(size);
+        //SetPadding(anchorMin);
     }
 
     private void SetPadding(Vector2 size)

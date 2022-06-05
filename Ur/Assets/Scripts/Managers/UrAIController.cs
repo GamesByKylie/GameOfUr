@@ -13,7 +13,7 @@ public class UrAIController : MonoBehaviour
 
 	private UrGameController urGC;
 	private int currentRoll;
-	private bool showingBark = false;
+	//private bool showingBark = false;
 
 	private void Start() 
 	{
@@ -32,7 +32,7 @@ public class UrAIController : MonoBehaviour
 	{
 		if (currentRoll != 0) 
 		{
-			showingBark = false;
+			//showingBark = false;
 			//Picks out what pieces are valid
 			List<UrPiece> movablePieces = new List<UrPiece>();
 			for (int i = 0; i < enemyPieces.Count; i++) {

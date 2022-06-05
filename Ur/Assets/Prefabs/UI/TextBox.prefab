@@ -106,10 +106,10 @@ RectTransform:
   m_Father: {fileID: 5428557180160965305}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 640, y: 390}
+  m_SizeDelta: {x: -100, y: -90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1288502343047376525
 CanvasRenderer:
@@ -142,8 +142,8 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 45
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
+    m_BestFit: 1
+    m_MinSize: 25
     m_MaxSize: 50
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -151,7 +151,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  m_Text: Aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaa aaa aaaaaaaaaaaaaaaa
+    aaaaa aaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaa aa aaaaaaaaaaaaaa aaaaaaaaaaaaaa
+    aaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaa aa aaaaaaaaaa
 --- !u!1 &8206708973875471232
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +192,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 750, y: 500}
+  m_SizeDelta: {x: 878.11206, y: 630.9591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1145059549662962760
 CanvasRenderer:
@@ -241,8 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f175bbfe0bb6240ad259ff53476604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textPosition: {x: 0, y: 0}
-  textSize: {x: 0, y: 0}
   anim: {fileID: 0}
   textPadding: {x: 110, y: 110}
   messageText: {fileID: 7343366535079675929}

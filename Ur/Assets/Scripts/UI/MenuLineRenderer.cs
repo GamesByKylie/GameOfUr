@@ -19,7 +19,6 @@ public class MenuLineRenderer : MonoBehaviour
     {
         if (Screen.width != screenSize.x || Screen.height != screenSize.y)
         {
-            Debug.Log("Screen size changed");
             ResizeLine();
         }
     }

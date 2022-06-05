@@ -23,14 +23,45 @@ public class SettingsManager : MonoBehaviour
     private static bool fullscreen;
 
     private static AudioSource bgmSource;
-    private static IEnumerable<Resolution> availableRes;
+    private static Resolution[] supportedResolutions = new Resolution[] {
+        new Resolution{ width = 1920, height = 1080 },
+        new Resolution{ width = 2560, height = 1440 },
+        new Resolution{ width = 1366, height = 768 },
+        new Resolution{ width = 3840, height = 2160 },
+        new Resolution{ width = 1600, height = 900 },
+        new Resolution{ width = 3440, height = 1440 },
+        new Resolution{ width = 1360, height = 768 },
+        new Resolution{ width = 2560, height = 1600 },
+        new Resolution{ width = 2560, height = 1080 },
+        new Resolution{ width = 1920, height = 1200 }
+        };
+    private static List<Resolution> availableRes = new List<Resolution>();
 
     private void Awake()
     {
-        availableRes = Screen.resolutions.Select(r => new Resolution { width = r.width, height = r.height }).Distinct();
-        availableRes = availableRes.Reverse();
+        List<Resolution> potentialRes = Screen.resolutions.Select(r => new Resolution { width = r.width, height = r.height }).Distinct().ToList();
+        foreach (var r in potentialRes)
+        {
+            foreach (var s in supportedResolutions)
+            {
+                if (s.width == r.width && s.height == r.height)
+                {
+                    availableRes.Add(r);
+                }
+            }
+        }
+        if (availableRes.Count == 0)
+        {
+            availableRes = supportedResolutions.ToList();
+        }
+        availableRes.OrderByDescending(r => r.width);
         bgmSource = GetComponent<AudioSource>();
 
+        InitializeSettings();
+    }
+
+    public static void InitializeSettings()
+    {
         if (!PlayerPrefs.HasKey("master_volume"))
         {
             PlayerPrefs.SetFloat("master_volume", DEFAULT_MASTER_VOLUME);
@@ -137,8 +168,9 @@ public class SettingsManager : MonoBehaviour
         }
         set
         {
-            screenResolution = value;
-            Screen.SetResolution(availableRes.ElementAt(value).width, availableRes.ElementAt(value).height, fullscreen);
+            screenResolution = Mathf.Clamp(value, 0, availableRes.Count - 1);
+            Debug.Log($"Trying to set resolution to number {value} (final value {screenResolution}");
+            Screen.SetResolution(availableRes[screenResolution].width, availableRes[screenResolution].height, fullscreen);
             PlayerPrefs.SetInt("screen_resolution", value);
         }
     }

@@ -9,8 +9,8 @@ public class TutorialInfo
 {
     [TextArea(3, 15)]
     public string text;
-    public Vector2 position;
-    public Vector2 scale;
+    public Vector2 anchorMin;
+    public Vector2 anchorMax;
     public GameObject[] turnOnAtStart;
     public GameObject[] turnOffAtStart;
     public GameObject[] turnOnAtEnd;

@@ -157,7 +157,7 @@ public class UrGameController : MonoBehaviour
         tutorialIndex = 0;
         displayBox.gameObject.SetActive(true);
         startUI.gameObject.SetActive(false);
-        displayBox.DisplayMessage(tutorial[0].text, tutorial[0].scale, tutorial[0].position);
+        displayBox.DisplayMessage(tutorial[0].text, tutorial[0].anchorMin, tutorial[0].anchorMax);
         TutorialStartObjects(tutorialIndex);
         waitingForInput = true;
         turnText.text = "Press any key to continue";
@@ -171,7 +171,7 @@ public class UrGameController : MonoBehaviour
         if (tutorialIndex < tutorial.Count)
         {
             TutorialStartObjects(tutorialIndex);
-            displayBox.DisplayMessage(tutorial[tutorialIndex].text, tutorial[tutorialIndex].scale, tutorial[tutorialIndex].position);
+            displayBox.DisplayMessage(tutorial[tutorialIndex].text, tutorial[tutorialIndex].anchorMin, tutorial[tutorialIndex].anchorMax);
         }
     }
 
