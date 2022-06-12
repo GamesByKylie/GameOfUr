@@ -349,7 +349,7 @@ PrefabInstance:
     - target: {fileID: 4694270082511247404, guid: aa45dd1378444034781d7316667b9639,
         type: 3}
       propertyPath: prefKey
-      value: resolution
+      value: screen_resolution
       objectReference: {fileID: 0}
     - target: {fileID: 4911430243414003095, guid: aa45dd1378444034781d7316667b9639,
         type: 3}

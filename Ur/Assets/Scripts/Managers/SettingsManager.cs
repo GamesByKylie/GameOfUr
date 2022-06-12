@@ -169,7 +169,6 @@ public class SettingsManager : MonoBehaviour
         set
         {
             screenResolution = Mathf.Clamp(value, 0, availableRes.Count - 1);
-            Debug.Log($"Trying to set resolution to number {value} (final value {screenResolution}");
             Screen.SetResolution(availableRes[screenResolution].width, availableRes[screenResolution].height, fullscreen);
             PlayerPrefs.SetInt("screen_resolution", value);
         }

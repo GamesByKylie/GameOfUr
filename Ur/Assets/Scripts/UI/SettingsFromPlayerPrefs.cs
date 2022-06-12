@@ -12,11 +12,23 @@ public class SettingsFromPlayerPrefs : MonoBehaviour
     private Toggle tog;
     private Dropdown drop;
 
+    private bool initialized = false;
+
     private void Awake()
     {
+        InitializeComponents();
+    }
+
+    private void InitializeComponents()
+    {
         slide = GetComponentInChildren<Slider>();
+        Debug.Log($"{name} has slider: {slide != null}");
         tog = GetComponentInChildren<Toggle>();
+        Debug.Log($"{name} has toggle: {tog != null}");
         drop = GetComponentInChildren<Dropdown>();
+        Debug.Log($"{name} has dropdown: {drop != null}");
+
+        initialized = true;
     }
 
     public void SetValueFromPref()
@@ -27,18 +39,18 @@ public class SettingsFromPlayerPrefs : MonoBehaviour
         //For a toggle it's string (cast from a bool) and for dropdown it's an int
         //So we can use that knowledge to know what type of PlayerPref we need
 
-        if (PlayerPrefs.HasKey(prefKey))
-        {
-            if (slide != null)
-            {
+        if (!initialized) {
+            InitializeComponents();
+        }
+
+        if (PlayerPrefs.HasKey(prefKey)) {
+            if (slide != null) {
                 slide.value = PlayerPrefs.GetFloat(prefKey);
             }
-            if (tog != null)
-            {
+            if (tog != null) {
                 tog.isOn = PlayerPrefs.GetString(prefKey) == "True";
             }
-            if (drop != null)
-            {
+            if (drop != null) {
                 int v = PlayerPrefs.GetInt(prefKey);
                 v = Mathf.Clamp(v, 0, drop.options.Count - 1);
                 drop.value = PlayerPrefs.GetInt(prefKey);

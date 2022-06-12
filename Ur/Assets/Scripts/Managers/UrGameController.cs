@@ -23,7 +23,7 @@ public class UrGameController : MonoBehaviour
     public GameObject startUI;
     public TextDisplayBox displayBox;
     public GameObject modalBlocker;
-    public GameObject pauseMenu;
+    public Animator pauseMenuAnim;
 	//[Range(0f, 1f)]
 	//public float bragToInsultRatio = 0.66f;
 	public Button rollDiceButton;
@@ -61,6 +61,9 @@ public class UrGameController : MonoBehaviour
     private bool waitingForInput = false;
     private int tutorialIndex = 0;
 
+    private bool gamePaused = false;
+    private bool settingsInitialized = false;
+
     [HideInInspector] public GameManager gm;
 
 	public void Awake() {
@@ -93,18 +96,30 @@ public class UrGameController : MonoBehaviour
 	}
 
     public void PauseMinigame() {
-        Time.timeScale = 0f;
-        pauseMenu.SetActive(true);
-        modalBlocker.SetActive(true);
-        menuButtons.InitializeSettings();
+        gamePaused = !gamePaused;
+        if (!gamePaused) {
+            Time.timeScale = 1f;
+        }
+        pauseMenuAnim.SetTrigger("PauseMenuisActive");
+        modalBlocker.SetActive(gamePaused);
+        if (!settingsInitialized) {
+            settingsInitialized = true;
+            menuButtons.InitializeSettings();
+        }
+
 	}
 
-    public void UnpauseMinigame()
+    public void SetGameSpeed(float speed)
     {
-        Time.timeScale = 1f;
-        pauseMenu.SetActive(false);
-        modalBlocker.SetActive(false);
+        Time.timeScale = speed;
     }
+
+    //public void UnpauseMinigame()
+    //{
+    //    Time.timeScale = 1f;
+    //    pauseMenuAnim.SetBool("PauseMenuisActive", false);
+    //    modalBlocker.SetActive(false);
+    //}
 
     public void PlayMoveSound()
     {
