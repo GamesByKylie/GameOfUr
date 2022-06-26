@@ -198,59 +198,86 @@ PrefabInstance:
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2826745662789796339, guid: 983166625c2e5794987def9ec452f0aa,
+        type: 3}
+      propertyPath: m_Size
+      value: 0.12628067
+      objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004440, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004440, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004440, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 464
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004440, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -839.88
+      value: -2243.91
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004440, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 928
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004440, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1679.76
+      value: 4487.82
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004442, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_text
-      value: "<color=black>This game is a part of <i>Sailing with the Gods</i>, an
-        educational game designed to teach about the realities of maritime culture
-        in Ancient Greece. It is filled with real cities in their actual, real-world
-        locations, each of which includes a taverna where players can participate
-        in actual ancient games. If you are interested in learning more or playing
-        the full game, please check out <link=\"https://sailingwiththegods.org/\"><#3D5F3C>our
-        website</color></link>!\n\nBendlin, Andreas (Erfurt) and Hurschmann, Rolf
+      value: "<color=black><line-indent=10%>The Royal Game of Ur desktop game was
+        designed and created by the Sailing with the Gods team. Lead programming
+        was developed by Kylie Gilde, and original design work was begun by Kennesaw
+        State University student David Herrod. Sound effects and menu borders were
+        created and provided by Evie Wang Edmundson.</line-indent>\r\n\r\n<b><size=50>Project
+        Team</size></b>\r\n\r\n<b>Dr. Sandra Blakely</b>\r\n<indent=5%><i>Project
+        Director, Emory University, Department of Classics</i></indent>\r\n<b>Dr.
+        Joanna C. Mundy</b>\r\n<indent=5%>Project Manager, Digital Projects Specialist,
+        Emory Center for Digital Scholarship</indent>\r\n<b>Kylie Gilde</b>\r\n<indent=5%>Lead
+        Programmer, Freelance Programmer</indent>\r\n<b>Kevin Dressel</b>\r\n<indent=5%>Technical
+        Architect, Shiny Dolphin Games LLC</indent>\r\n<b>Evie Wang Edmundson</b>\r\n<indent=5%>Freelance
+        Composer and Producer</indent>\r\n<b>Dr. Joy Li</b>\r\n<indent=5%>Game Development
+        Collaborator, Kennesaw State University, Assistant Professor of Computer
+        Game Design and Development</indent>\r\n<b>David Herrod</b>\r\n<indent=5%>Student
+        Game Design and Programmer, Kennesaw State University (2020)</indent>\r\n\r\n<b><size=50>Historical
+        Sources</size></b>\r\n\r\nBendlin, Andreas (Erfurt) and Hurschmann, Rolf
         (Hamburg), \u201CBoard games\u201D, in Brill\u2019s New Pauly, Antiquity
         volumes edited by: Hubet Cancik and Helmuth Schneider, English Edition by:
         Christine F. Salazar, Classical Tradition volumes edited by: Manfred Landfester,
         English Edition by: Francis G. Gentry. First published online: 2006. First
-        print edition: 9789004122598, 20110510\r\nBritish Museum. Collection webpage
-        for Royal Game of Ur, game-board. The British Museum collection #120834. 
-        Available at: https://www.britishmuseum.org/collection/object/W_1928-1009-378
-        Accessed on [10/2021].\r\n\r\nFinkel, Irving L.  2007. \u201COn the Rules
-        for the Royal Games of Ur,\u201D in Irving L. Finkel (ed.) Ancient Board
+        print edition: 9789004122598, 20110510\r\n\r\nBritish Museum. Collection
+        webpage for Royal Game of Ur, <i>game-board</i>. The British Museum collection
+        #120834. Available at <link=\"https://www.britishmuseum.org/collection/object/W_1928-1009-378\"><#365f3C>https://www.britishmuseum.org/collection/object/W_1928-1009-378</color></link>
+        Accessed on [10/2021].\r\n\r\nFinkel, Irving L. 2007. \u201COn the Rules
+        for the Royal Games of Ur,\u201D in Irving L. Finkel (ed.) <i>Ancient Board
         Games in Perspective. Papers from the 1990 British Museum Colloquium, with
-        additional contributions London: British Museum Press, p 22-32.\r\n\r\nKurke,
+        additional contributions</i> London: British Museum Press, p 22-32.\r\n\r\nKurke,
         Leslie. 1999. \u201CAncient Greek Board Games and How to Play Them.\u201D
-        Classical Philology 94.3: 247-267.\n</color>"
+        <i>Classical Philology</i> 94.3: 247-267.\r\n\r\n<b><size=50>Licenses</size></b>\r\n\r\nThe
+        Royal Game of Ur presented here is made available for sharing and reuse under
+        the terms of the <link=\"https://www.gnu.org/licenses/gpl-3.0.en.html\"><#3D5F3C>GNU
+        General Public License v.3</color></link>.\_\r\n\r\nThe game code for Sailing
+        with the Gods and the Royal Game of Ur is available on Github:\r\n\r\n<indent=5%><link=\"https://github.com/kddressel/sailingwiththegods\"><#3D5F3C><i>Sailing
+        with the Gods</color></link></i> licensed under a <link=\"https://github.com/robcbryant/sailingwiththegods/blob/master/LICENSE\"><#3D5F3C>GNU
+        Lesser General Public License v3.0.\_</color></link>\r\n\r\nFully developed
+        <link=\"https://github.com/GamesByKylie/GameOfUr\"><#3D5F3C>build of the
+        Royal Game of Ur mini-game</color></link> licensed under the <link=\"https://www.gnu.org/licenses/gpl-3.0.en.html\"><#3D5F3C>GNU
+        General Public License v.3</color></link>.</indent>\r\n\r\nHowever, Sailing
+        with the Gods includes some third-party libraries, which have their own licenses.\r\n\r\n<b><size=50>Sponsors</size></b>\r\n\r\nThis
+        game was created with the support of the Emory Center for Digital Scholarship,
+        2015-2022.\r\n\r\n<b><size=50>Contact</size></b>\r\n\r\nMain Website: <link=\"https://sailingwiththegods.org/\"><#3D5F3C>https://sailingwiththegods.org/</color></link>\r\n\nContact
+        Us: <link=\"mailto:samothracian.networks@gmail.com\"><#3D5F3C>samothracian.networks@gmail.com</color></link>\r\n</color>"
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663266536858, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
@@ -265,17 +292,17 @@ PrefabInstance:
     - target: {fileID: 2826745663266536858, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.68495744
+      value: 0.87371933
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663611514714, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1679.76
+      value: 4487.82
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663611514714, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: -0.00024414062
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663611514714, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
@@ -3121,7 +3148,7 @@ GameObject:
   - component: {fileID: 1927178066}
   - component: {fileID: 1927178065}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Clear Data Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
