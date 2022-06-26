@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using UnityEngine.EventSystems;
 
 public class MenuButtons : MonoBehaviour
 {
+    public static Action ResolutionChanged;
+
     public GameObject modalBlocker;
     public Dropdown resolutionDropdown;
     public GameObject[] extraScreens;
     public SettingsFromPlayerPrefs[] settingsOptions;
+
+    private bool initialized = false;
 
     public void LoadMainMenu()
     {
@@ -28,10 +34,18 @@ public class MenuButtons : MonoBehaviour
     public void OpenSettings()
     {
         ToggleScreen(0, true);
-        InitializeSettings();
+        if (!initialized)
+        {
+            InitializeSettings();
+        }
     }
 
     public void InitializeSettings()
+    {
+        StartCoroutine(DoInitializeSettings());
+    }
+
+    private IEnumerator DoInitializeSettings()
     {
         resolutionDropdown.ClearOptions();
         foreach (var r in SettingsManager.AvailableResolutions)
@@ -39,10 +53,14 @@ public class MenuButtons : MonoBehaviour
             resolutionDropdown.options.Add(new Dropdown.OptionData(r.width + "x" + r.height));
         }
 
+        yield return null;
+
         foreach (var s in settingsOptions)
         {
             s.SetValueFromPref();
         }
+
+        initialized = true;
     }
 
     public void CloseSettings()

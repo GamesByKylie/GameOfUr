@@ -46,7 +46,7 @@ public class SettingsManager : MonoBehaviour
             {
                 if (s.width == r.width && s.height == r.height)
                 {
-                    availableRes.Add(r);
+                    //availableRes.Add(r);
                 }
             }
         }
@@ -170,6 +170,7 @@ public class SettingsManager : MonoBehaviour
         {
             screenResolution = Mathf.Clamp(value, 0, availableRes.Count - 1);
             Screen.SetResolution(availableRes[screenResolution].width, availableRes[screenResolution].height, fullscreen);
+            MenuButtons.ResolutionChanged?.Invoke();
             PlayerPrefs.SetInt("screen_resolution", value);
         }
     }
@@ -200,6 +201,7 @@ public class SettingsManager : MonoBehaviour
             fullscreen = value;
             PlayerPrefs.SetString("fullscreen", value.ToString());
             Screen.fullScreen = value;
+            MenuButtons.ResolutionChanged?.Invoke();
             Screen.fullScreenMode = value ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
         }
     }

@@ -22,11 +22,8 @@ public class SettingsFromPlayerPrefs : MonoBehaviour
     private void InitializeComponents()
     {
         slide = GetComponentInChildren<Slider>();
-        Debug.Log($"{name} has slider: {slide != null}");
         tog = GetComponentInChildren<Toggle>();
-        Debug.Log($"{name} has toggle: {tog != null}");
         drop = GetComponentInChildren<Dropdown>();
-        Debug.Log($"{name} has dropdown: {drop != null}");
 
         initialized = true;
     }
