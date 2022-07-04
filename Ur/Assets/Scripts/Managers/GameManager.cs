@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Text loadingText;
+    public bool goToMainMenu = false;
 
     [HideInInspector] public List<string> urFlavor;
     [HideInInspector] public List<string> urInsults;
@@ -24,12 +25,22 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        loadingText.text = "";
-        instance = this;
-        MasterCrewList = CSVLoader.LoadMasterCrewRoster();
-        CSVLoader.LoadUrText(out urFlavor, out urRosetteText, out urCaptureText, out urFlipText, out urMoveOffText, out urMoveOnText, out urLoseText, out urWinText, out urInsults);
-        persistantScene = SceneManager.GetSceneByBuildIndex(0);
-        LoadMainMenu();
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            instance.SetLoadingText("");
+            MasterCrewList = CSVLoader.LoadMasterCrewRoster();
+            CSVLoader.LoadUrText(out urFlavor, out urRosetteText, out urCaptureText, out urFlipText, out urMoveOffText, out urMoveOnText, out urLoseText, out urWinText, out urInsults);
+            persistantScene = SceneManager.GetSceneByBuildIndex(0);
+            if (goToMainMenu)
+            {
+                LoadMainMenu();
+            }
+        }
     }
 
     //Since we're using Async scene loading, we need to do that through a coroutine
@@ -80,9 +91,9 @@ public class GameManager : MonoBehaviour
             //Going to add a bit of artificial load time in here so you can see the "loading" screen instead of it just flashing for an instant
             //We want to minimize flashing images, obviously, and this way it's also easier to tell that it's a loading screen
             //This will probably be replaced by something nicer looking later when I learn how to do that
-            instance.loadingText.text = "Loading...";
+            instance.SetLoadingText("Loading...");
             yield return new WaitForSeconds(0.25f);
-            instance.loadingText.text = "";
+            instance.SetLoadingText("");
 
             yield return SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
 
@@ -93,6 +104,14 @@ public class GameManager : MonoBehaviour
             Scene nextScene = SceneManager.GetSceneByBuildIndex(index);
 
             SceneManager.SetActiveScene(nextScene);
+        }
+    }
+
+    private void SetLoadingText(string text)
+    {
+        if (loadingText != null)
+        {
+            loadingText.text = text;
         }
     }
 

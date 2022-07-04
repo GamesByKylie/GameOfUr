@@ -21,6 +21,8 @@ public class UrGameController : MonoBehaviour
 	[Header("UI")]
 	public Camera mainCam;
     public GameObject startUI;
+    public GameObject gameOverUI;
+    public Text gameOverText;
     public TextDisplayBox displayBox;
     public GameObject modalBlocker;
     public Animator pauseMenuAnim;
@@ -479,13 +481,7 @@ public class UrGameController : MonoBehaviour
 				break;
 		}
 
-		if (isPlayer) {
-			sfxAud.clip = sounds[0];
-		}
-		else {
-			sfxAud.clip = sounds[1];
-		}
-
+        sfxAud.clip = isPlayer ? sounds[0] : sounds[1];
         sfxAud.volume = SettingsManager.MasterVolume * SettingsManager.SFXVolume;
 		sfxAud.Play();
 	}
@@ -496,7 +492,10 @@ public class UrGameController : MonoBehaviour
 		rollDiceButton.interactable = false;
 		allowPlayerMove = false;
 
-        Debug.Log("You win!");
+        gameOverUI.SetActive(true);
+        modalBlocker.SetActive(true);
+        gameOverText.text = $"<size=60><b>Congratulations!</b></size>\n\nTotal Turns: {turnCount}\n\n";
+        //if current turns is lower than best score, append <b>New High Score!</b>
 	}
 
 	private void LoseGame() 
@@ -505,7 +504,9 @@ public class UrGameController : MonoBehaviour
 		rollDiceButton.interactable = false;
 		allowPlayerMove = false;
 
-        Debug.Log("You lose!");
+        gameOverUI.SetActive(true);
+        modalBlocker.SetActive(true);
+        gameOverText.text = $"<size=60><b>Too Bad!</b></size>\nTotal Turns: {turnCount}\n\n";
 	}
 
 	public int CurrentRoll {

@@ -39,7 +39,7 @@ public class UrDiceRoller : MonoBehaviour
 		anim.transform.eulerAngles = new Vector3(0f, Random.Range(1f, 360f), 0f);
 		anim.SetTrigger(trigger);
 
-        if (diceSource.gameObject.activeSelf)
+        if (diceSource.gameObject.activeSelf && SettingsManager.AnimationsEnabled)
         {
             diceSource.volume = SettingsManager.MasterVolume * SettingsManager.SFXVolume;
 		    diceSource.clip = diceSounds[Random.Range(0, diceSounds.Length)];

@@ -10,11 +10,15 @@ public class MenuButtons : MonoBehaviour
     public static Action ResolutionChanged;
 
     public GameObject modalBlocker;
+    public Button resolutionConfirmButton;
+    public Text resolutionConfirmText;
     public Dropdown resolutionDropdown;
     public GameObject[] extraScreens;
     public SettingsFromPlayerPrefs[] settingsOptions;
 
     private bool initialized = false;
+    private Coroutine resolutionConfirmRoutine;
+    private int previousResolution;
 
     public void LoadMainMenu()
     {
@@ -61,6 +65,7 @@ public class MenuButtons : MonoBehaviour
         }
 
         initialized = true;
+        previousResolution = SettingsManager.ScreenResolution;
     }
 
     public void CloseSettings()
@@ -111,7 +116,30 @@ public class MenuButtons : MonoBehaviour
 
     public void UpdateScreenResolution(Dropdown d)
     {
+        previousResolution = SettingsManager.ScreenResolution;
         SettingsManager.ScreenResolution = d.value;
+        resolutionConfirmRoutine = StartCoroutine(DoConfirmResolution());
+    }
+
+    public void ConfirmResolution()
+    {
+        StopCoroutine(resolutionConfirmRoutine);
+        resolutionConfirmButton.interactable = false;
+        resolutionConfirmText.text = "";
+    }
+
+    private IEnumerator DoConfirmResolution()
+    {
+        resolutionConfirmButton.interactable = true;
+        resolutionConfirmText.text = "Confirm? 3";
+        yield return new WaitForSeconds(1);
+        resolutionConfirmText.text = "Confirm? 2";
+        yield return new WaitForSeconds(1);
+        resolutionConfirmText.text = "Confirm? 1";
+        yield return new WaitForSeconds(1);
+        SettingsManager.ScreenResolution = previousResolution;
+        resolutionConfirmButton.interactable = false;
+        resolutionConfirmText.text = "";
     }
 
     public void UpdateAnimationsEnabled(bool enabled)

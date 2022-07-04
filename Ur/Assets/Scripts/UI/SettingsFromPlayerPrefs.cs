@@ -42,15 +42,15 @@ public class SettingsFromPlayerPrefs : MonoBehaviour
 
         if (PlayerPrefs.HasKey(prefKey)) {
             if (slide != null) {
-                slide.value = PlayerPrefs.GetFloat(prefKey);
+                slide.SetValueWithoutNotify(PlayerPrefs.GetFloat(prefKey));
             }
             if (tog != null) {
-                tog.isOn = PlayerPrefs.GetString(prefKey) == "True";
+                tog.SetIsOnWithoutNotify(PlayerPrefs.GetString(prefKey) == "True");
             }
             if (drop != null) {
                 int v = PlayerPrefs.GetInt(prefKey);
                 v = Mathf.Clamp(v, 0, drop.options.Count - 1);
-                drop.value = PlayerPrefs.GetInt(prefKey);
+                drop.SetValueWithoutNotify(PlayerPrefs.GetInt(prefKey));
             }
         }
     }
