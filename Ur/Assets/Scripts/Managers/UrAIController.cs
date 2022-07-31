@@ -13,7 +13,7 @@ public class UrAIController : MonoBehaviour
 
 	private UrGameController urGC;
 	private int currentRoll;
-	//private bool showingBark = false;
+	private bool showingBark = false;
 
 	private void Start() 
 	{
@@ -22,8 +22,7 @@ public class UrAIController : MonoBehaviour
 
 	public void EnemyTurn() 
 	{
-		if (!urGC.IsGameOver) 
-		{
+		if (!urGC.IsGameOver) {
 			currentRoll = urGC.GetDiceRoll();
 		}
 	}
@@ -32,12 +31,11 @@ public class UrAIController : MonoBehaviour
 	{
 		if (currentRoll != 0) 
 		{
-			//showingBark = false;
+			showingBark = false;
 			//Picks out what pieces are valid
 			List<UrPiece> movablePieces = new List<UrPiece>();
 			for (int i = 0; i < enemyPieces.Count; i++) {
-				if (enemyPieces[i].PopulateValidMovesList(urGC.enemyBoardPositions, false).Count != 0) 
-				{
+				if (enemyPieces[i].PopulateValidMovesList(urGC.enemyBoardPositions, false).Count != 0) {
 					movablePieces.Add(enemyPieces[i]);
 				}
 			}
@@ -50,8 +48,7 @@ public class UrAIController : MonoBehaviour
 				pieceToMove.ShowHighlight(true);
 
 				List<UrGameTile> validMoves = pieceToMove.PopulateValidMovesList(urGC.enemyBoardPositions, false);
-				foreach (UrGameTile t in validMoves) 
-				{
+				foreach (UrGameTile t in validMoves) {
 					t.ShowHighlight(true, false);
 				}
 				//If we're moving it onto the board, it's only got one potential move. Otherwise, it has two - its current space and the next one
@@ -75,17 +72,16 @@ public class UrAIController : MonoBehaviour
 
 				bool captureThisTurn = false;
 				//Check for a capture
-				if (nextTile.OppositeOccupyingPiece(false)) 
-				{
+				if (nextTile.OppositeOccupyingPiece(false)) {
 					nextTile.RemoveCurrentFromBoard();
 					captureThisTurn = true;
 					urGC.ShowAlertText("Captured by the enemy!");
-					//if (!showingBark) {
-					//	urGC.TriggerBark(false, urGC.gm.urCaptureText);
-					//	showingBark = true;
-					//}
+                    if (!showingBark) {
+                        urGC.TriggerBark(false, GameManager.UrCaptureText);
+                        showingBark = true;
+                    }
 
-					urGC.PlaySoundFX(UrGameController.SoundTrigger.Capture, false);
+                    urGC.PlaySoundFX(UrGameController.SoundTrigger.Capture, false);
 				}
 
 				pieceToMove.ClearPossiblePath();
@@ -93,38 +89,32 @@ public class UrAIController : MonoBehaviour
 				pieceToMove.DestroyGhost();
 
 				//Flip
-				if (pieceToMove.BoardIndex < 16 && pieceToMove.BoardIndex + currentRoll >= 16) 
-				{
+				if (pieceToMove.BoardIndex < 16 && pieceToMove.BoardIndex + currentRoll >= 16) {
 					pieceToMove.FlipPiece();
-					//if (!showingBark) {
-					//	urGC.TriggerBark(false, urGC.gm.urFlipText);
-					//	showingBark = true;
-					//}
-
-				}
+                    if (!showingBark) {
+                        urGC.TriggerBark(false, GameManager.UrFlipText);
+                        showingBark = true;
+                    }
+                }
 
 				//Not moving onto the board for the first time
-				if (pieceToMove.BoardIndex != -1) 
-				{
+				if (pieceToMove.BoardIndex != -1) {
 					urGC.enemyBoardPositions[pieceToMove.BoardIndex].ClearOccupied();
 					pieceToMove.BoardIndex += currentRoll;
-				}
-				else 
-				{
+				} else {
 					//If they're at at the beginning, we don't want to set their position to 4 if they rolled a 5
 					pieceToMove.BoardIndex = 0;
-					//if (!showingBark) {
-					//	urGC.TriggerBark(false, urGC.gm.urMoveOnText);
-					//	showingBark = true;
-					//}
-					
-				}
+                    if (!showingBark) {
+                        urGC.TriggerBark(false, GameManager.UrMoveOnText);
+                        showingBark = true;
+                    }
+                }
 
 				//If you're moving off the board
 				if (pieceToMove.BoardIndex == urGC.playerBoardPositions.Count - 1) 
 				{
 					//We don't have to check for other barks here because if you're moving off the board, you're not moving on, or hitting a rosette, or capturing
-					//urGC.TriggerBark(false, urGC.gm.urMoveOffText, true);
+					urGC.TriggerBark(false, GameManager.UrMoveOffText, true);
 					urGC.PointScored(false, pieceToMove);
 					urGC.PlaySoundFX(UrGameController.SoundTrigger.OffBoard, false);
 				}
@@ -136,17 +126,16 @@ public class UrAIController : MonoBehaviour
 				{
 					if (captureThisTurn) {
 						urGC.ShowAlertText("Captured! And Opponent Rolls Again!");
-					}
-					else {
+					} else {
 						urGC.ShowAlertText("Opponent Rolls Again");
 					}
 
-					//if (!showingBark) {
-					//	urGC.TriggerBark(false, urGC.gm.urRosetteText);
-					//	showingBark = true;
-					//}
+                    if (!showingBark) {
+                        urGC.TriggerBark(false, GameManager.UrRosetteText);
+                        showingBark = true;
+                    }
 
-					urGC.PlaySoundFX(UrGameController.SoundTrigger.Rosette, false);
+                    urGC.PlaySoundFX(UrGameController.SoundTrigger.Rosette, false);
 					redoTurn = true;
 				}
 			}

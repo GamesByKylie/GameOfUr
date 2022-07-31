@@ -112,94 +112,76 @@ public class UrPlayerPiece : UrPiece
 
 				if (boardIndex != -1) {
 					urGC.playerBoardPositions[boardIndex].ClearOccupied();
-				}
-				else {
-					//if (!showingBark) {
-					//	urGC.TriggerBark(true, urGC.gm.urMoveOnText);
-					//	showingBark = true;
-					//}
-
-				}
+				} else {
+                    if (!showingBark) {
+                        urGC.TriggerBark(true, GameManager.UrMoveOnText);
+                        showingBark = true;
+                    }
+                }
 				
 				//The "bridge" you go back along starts at index 16 for both player and enemy, so I'm hard-coding it in
 				//Again, this is a bad practice, but it shouldn't change so it's probably fine
 				if (boardIndex < 16 && potentialIndex >= 16) 
 				{
 					FlipPiece();
-					//if (!showingBark) {
-					//	urGC.TriggerBark(true, urGC.gm.urFlipText);
-					//	showingBark = true;
-					//}
-
-				}
+                    if (!showingBark) {
+                        urGC.TriggerBark(true, GameManager.UrFlipText);
+                        showingBark = true;
+                    }
+                }
 
 				boardIndex = potentialIndex;
 				//Capture
 				bool captureThisTurn = false;
-				if (urGC.playerBoardPositions[boardIndex].OppositeOccupyingPiece(true)) 
-				{
+				if (urGC.playerBoardPositions[boardIndex].OppositeOccupyingPiece(true)) {
 					captureThisTurn = true;
 					urGC.playerBoardPositions[boardIndex].RemoveCurrentFromBoard();
 					urGC.ShowAlertText("Captured the enemy!");
-					//if (!showingBark) {
-					//	urGC.TriggerBark(true, urGC.gm.urCaptureText);
-					//	showingBark = true;
-					//}
-
-					urGC.PlaySoundFX(UrGameController.SoundTrigger.Capture, true);
+                    if (!showingBark) {
+                        urGC.TriggerBark(true, GameManager.UrCaptureText);
+                        showingBark = true;
+                    }
+                    urGC.PlaySoundFX(UrGameController.SoundTrigger.Capture, true);
 				}
 
 				//We check this now because we won't need to do any more processing if you're moving off the board
 				//We especially don't want to set the end space to occupied!
-				if (boardIndex == urGC.playerBoardPositions.Count - 1) 
-				{
-					//urGC.TriggerBark(true, urGC.gm.urMoveOffText, true);
+				if (boardIndex == urGC.playerBoardPositions.Count - 1) {
+					urGC.TriggerBark(true, GameManager.UrMoveOffText, true);
 					urGC.PointScored(true, this);
 					urGC.PlaySoundFX(UrGameController.SoundTrigger.OffBoard, true);
-				}
-				else {
+				} else {
 					urGC.playerBoardPositions[boardIndex].SetOccupied(this);
 				}
 				
 				//If it's a rosette, "switch" to player turn
-				if (urGC.playerBoardPositions[boardIndex].isRosette) 
-				{
+				if (urGC.playerBoardPositions[boardIndex].isRosette) {
 					if (captureThisTurn) {
 						urGC.ShowAlertText("Captured the enemy! And Roll Again!");
-					}
-					else {
+					} else {
 						urGC.ShowAlertText("Roll Again");
 					}
 
 					if (!showingBark) {
-						//urGC.TriggerBark(true, urGC.gm.urRosetteText);
+						urGC.TriggerBark(true, GameManager.UrRosetteText);
 						showingBark = true;
 					}
 
 					urGC.PlaySoundFX(UrGameController.SoundTrigger.Rosette, true);
 					urGC.SwitchTurn(true, false);
-				}
-				else 
-				{
-                    if (SettingsManager.AnimationsEnabled)
-                    {
+				} else {
+                    if (SettingsManager.AnimationsEnabled) {
                         StartCoroutine(urGC.WaitToSwitchTurn(false, true, endTurnPause));
-                    }
-                    else
-                    {
+                    } else {
                         urGC.SwitchTurn(false, true);
                     }
 				}
 
 				//No clue why I would need to check this, but I got an error once out of nowhere!
-				if (validMoves != null) 
-				{
+				if (validMoves != null) {
 					validMoves.Clear();
 				}
-			}
-			//If you didn't move, the highlights need to come back
-			else 
-			{
+			} else { //If you didn't move, the highlights need to come back
 				urGC.CanPlayerMove(true);
 			}
 		}

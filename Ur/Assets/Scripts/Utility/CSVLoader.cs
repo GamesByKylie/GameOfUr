@@ -121,36 +121,16 @@ public static class CSVLoader
 			string[] texts = fileByLine[i].Split(lineDelimiter);
 			string content = StripAndAddNewlines(texts[0], newline);
 			switch (texts[1]) {
-				case "rosette":
-					rosette.Add(content);
-					break;
-				case "capture":
-					capture.Add(content);
-					break;
-				case "flip":
-					flip.Add(content);
-					break;
-				case "off":
-					moveOff.Add(content);
-					break;
-				case "on":
-					moveOn.Add(content);
-					break;
-				case "lose":
-					lose.Add(content);
-					break;
-				case "win":
-					win.Add(content);
-					break;
-				case "insult":
-					insult.Add(content);
-					break;
-				case "intro":
-					insult.Add(content);
-					break;
-				default:
-					Debug.Log($"Ur text line {i} not marked correctly: {texts[1]}!");
-					break;
+				case "rosette": rosette.Add(content); break;
+				case "capture": capture.Add(content); break;
+				case "flip": flip.Add(content); break;
+				case "off": moveOff.Add(content); break;
+				case "on": moveOn.Add(content); break;
+				case "lose": lose.Add(content); break;
+				case "win": win.Add(content); break;
+				case "insult": insult.Add(content); break;
+				case "intro": insult.Add(content); break;
+				default: Debug.Log($"Ur text line {i} not marked correctly: {texts[1]}!"); break;
 			}
 		}
 	}

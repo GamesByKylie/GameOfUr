@@ -3,7 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 using UnityEngine.EventSystems;
+
+[Serializable]
+public class MenuScreen
+{
+    public enum ScreenType { CharacterSelector, Settings, History, Credits }
+
+    public ScreenType type;
+    public GameObject screenObj;
+}
 
 public class MenuButtons : MonoBehaviour
 {
@@ -13,7 +23,7 @@ public class MenuButtons : MonoBehaviour
     public Button resolutionConfirmButton;
     public Text resolutionConfirmText;
     public Dropdown resolutionDropdown;
-    public GameObject[] extraScreens;
+    public MenuScreen[] extraScreens;
     public SettingsFromPlayerPrefs[] settingsOptions;
 
     private bool initialized = false;
@@ -37,7 +47,7 @@ public class MenuButtons : MonoBehaviour
 
     public void OpenSettings()
     {
-        ToggleScreen(0, true);
+        ToggleScreen(MenuScreen.ScreenType.Settings, true);
         if (!initialized)
         {
             InitializeSettings();
@@ -68,34 +78,44 @@ public class MenuButtons : MonoBehaviour
         previousResolution = SettingsManager.ScreenResolution;
     }
 
+    public void OpenCharacterSelection()
+    {
+        ToggleScreen(MenuScreen.ScreenType.CharacterSelector, true);
+    }
+
+    public void CloseCharacterSelection()
+    {
+        ToggleScreen(MenuScreen.ScreenType.CharacterSelector, false);
+    }
+
     public void CloseSettings()
     {
-        ToggleScreen(0, false);
+        ToggleScreen(MenuScreen.ScreenType.Settings, false);
     }
 
     public void OpenHistory()
     {
-        ToggleScreen(1, true);
+        ToggleScreen(MenuScreen.ScreenType.History, true);
     }
 
     public void CloseHistory()
     {
-        ToggleScreen(1, false);
+        ToggleScreen(MenuScreen.ScreenType.History, false);
     }
 
     public void OpenCredits()
     {
-        ToggleScreen(2, true);
+        ToggleScreen(MenuScreen.ScreenType.Credits, true);
     }
 
     public void CloseCredits()
     {
-        ToggleScreen(2, false);
+        ToggleScreen(MenuScreen.ScreenType.Credits, false);
     }
 
-    private void ToggleScreen(int screen, bool activate)
+    private void ToggleScreen(MenuScreen.ScreenType type, bool activate)
     {
-        extraScreens[screen].SetActive(activate);
+        extraScreens.FirstOrDefault(x => x.type == type).screenObj.SetActive(activate);
         modalBlocker.SetActive(activate);
     }
 
@@ -138,6 +158,7 @@ public class MenuButtons : MonoBehaviour
         resolutionConfirmText.text = "Confirm? 1";
         yield return new WaitForSeconds(1);
         SettingsManager.ScreenResolution = previousResolution;
+        resolutionDropdown.value = previousResolution;
         resolutionConfirmButton.interactable = false;
         resolutionConfirmText.text = "";
     }

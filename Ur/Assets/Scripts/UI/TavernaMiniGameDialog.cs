@@ -5,43 +5,58 @@ using UnityEngine.UI;
 
 public class TavernaMiniGameDialog : MonoBehaviour
 {
+    public Text nameText;
+    public Image portrait;
+
+    public float displayTime = 5f;
 	public GameObject textBackground;
 	public Text dialog;
+    
+    protected Coroutine displayRoutine;
 
-    protected GameManager gm;
-
-    private void Start() 
+    protected virtual void Start() 
 	{
-        gm = GameObject.FindWithTag("Master").GetComponent<GameManager>();
+        SetDisplayInformation();
         textBackground.SetActive(false);
 	}
+
+    protected virtual void SetDisplayInformation()
+    {
+        nameText.text = GameManager.SelectedCharacter.characterName;
+        portrait.sprite = GameManager.SelectedCharacter.characterIcon;
+    }
 
 	/// <summary>
 	/// Displays an insult
 	/// </summary>
 	public void DisplayInsult() {
-		//Time.timeScale = 0;
-		textBackground.SetActive(true);
-		dialog.text = gm.urInsults.RandomElement();
-	}
+        if (displayRoutine != null) {
+            StopCoroutine(displayRoutine);
+        }
 
-	/// <summary>
-	/// Displays a brag
-	/// </summary>
-	public void DisplayBragging() {
-		//Time.timeScale = 0;
 		textBackground.SetActive(true);
-		//dialog.text = braggingTexts.RandomElement();
+		dialog.text = GameManager.UrInsults.RandomElement();
+        displayRoutine = StartCoroutine(AutoCloseDialog());
 	}
 
 	public void DisplayFromList(List<string> barkList) {
-		//Time.timeScale = 0;
+        if (displayRoutine != null) {
+            StopCoroutine(displayRoutine);
+        }
+
 		textBackground.SetActive(true);
-		//dialog.text = barkList.RandomElement();
+		dialog.text = barkList.RandomElement();
+        displayRoutine = StartCoroutine(AutoCloseDialog());
 	}
 
 	public void CloseDialog() {
-		//Time.timeScale = 1;
+        StopCoroutine(displayRoutine);
 		textBackground.SetActive(false);
 	}
+
+    private IEnumerator AutoCloseDialog()
+    {
+        yield return new WaitForSeconds(displayTime);
+        CloseDialog();
+    }
 }

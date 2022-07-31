@@ -10,15 +10,16 @@ public class GameManager : MonoBehaviour
     public Text loadingText;
     public bool goToMainMenu = false;
 
-    [HideInInspector] public List<string> urFlavor;
-    [HideInInspector] public List<string> urInsults;
-    [HideInInspector] public List<string> urWinText;
-    [HideInInspector] public List<string> urLoseText;
-    [HideInInspector] public List<string> urRosetteText;
-    [HideInInspector] public List<string> urFlipText;
-    [HideInInspector] public List<string> urCaptureText;
-    [HideInInspector] public List<string> urMoveOnText;
-    [HideInInspector] public List<string> urMoveOffText;
+    public static PlayableCharacter SelectedCharacter;
+    public static List<string> UrFlavor;
+    public static List<string> UrInsults;
+    public static List<string> UrWinText;
+    public static List<string> UrLoseText;
+    public static List<string> UrRosetteText;
+    public static List<string> UrFlipText;
+    public static List<string> UrCaptureText;
+    public static List<string> UrMoveOnText;
+    public static List<string> UrMoveOffText;
 
     private static Scene persistantScene;
     private static GameManager instance;
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             instance.SetLoadingText("");
             MasterCrewList = CSVLoader.LoadMasterCrewRoster();
-            CSVLoader.LoadUrText(out urFlavor, out urRosetteText, out urCaptureText, out urFlipText, out urMoveOffText, out urMoveOnText, out urLoseText, out urWinText, out urInsults);
+            CSVLoader.LoadUrText(out UrFlavor, out UrRosetteText, out UrCaptureText, out UrFlipText, out UrMoveOffText, out UrMoveOnText, out UrLoseText, out UrWinText, out UrInsults);
             persistantScene = SceneManager.GetSceneByBuildIndex(0);
             if (goToMainMenu)
             {
@@ -115,5 +116,5 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public List<CrewMember> MasterCrewList { get; set; }
+    public static List<CrewMember> MasterCrewList { get; set; }
 }

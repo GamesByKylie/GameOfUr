@@ -11,12 +11,14 @@ public class UrGameController : MonoBehaviour
 	public List<UrPiece> playerPieces;
 	public List<UrGameTile> playerBoardPositions;
 	public GameObject playerPathLine;
+    public TavernaMiniGameDialog playerDialog;
 
 	[Header("Enemy")]
 	public string enemyTag;
 	[HideInInspector] public UrAIController enemyAI;
 	public List<UrGameTile> enemyBoardPositions;
 	public GameObject enemyPathLine;
+    public TavernaEnemyDialog enemyDialog;
 
 	[Header("UI")]
 	public Camera mainCam;
@@ -26,8 +28,10 @@ public class UrGameController : MonoBehaviour
     public TextDisplayBox displayBox;
     public GameObject modalBlocker;
     public Animator pauseMenuAnim;
-	//[Range(0f, 1f)]
-	//public float bragToInsultRatio = 0.66f;
+	[Range(0f, 1f)]
+	public float bragToInsultRatio = 0.66f;
+    [Range(0f, 1f)]
+    public float barkChance = 0.15f;
 	public Button rollDiceButton;
     public Text turnText;
 	public Text alertText;
@@ -65,14 +69,11 @@ public class UrGameController : MonoBehaviour
 
     private bool gamePaused = false;
     private bool settingsInitialized = false;
-
-    [HideInInspector] public GameManager gm;
-
+    
 	public void Awake() {
 		//Assign variables
 		enemyAI = GetComponent<UrAIController>();
 		dice = GetComponent<UrDiceRoller>();
-        gm = GameObject.FindWithTag("Master").GetComponent<GameManager>();
         menuButtons = GetComponent<MenuButtons>();
 
         playerPathLine.SetActive(false);
@@ -153,16 +154,11 @@ public class UrGameController : MonoBehaviour
 
     private void Update()
     {
-        if (waitingForInput)
-        {
-            if (Input.anyKeyDown)
-            {
-                if (tutorialIndex < tutorial.Count - 1)
-                {
+        if (waitingForInput) {
+            if (Input.anyKeyDown) {
+                if (tutorialIndex < tutorial.Count - 1) {
                     DisplayNextTutorial();
-                }
-                else if (tutorialIndex == tutorial.Count - 1)
-                {
+                } else if (tutorialIndex == tutorial.Count - 1) {
                     FinishTutorial();
                 }
             }
@@ -283,11 +279,9 @@ public class UrGameController : MonoBehaviour
 	public void SwitchTurn(bool playerTurn, bool updateTurn) {
 		isPlayerTurn = playerTurn;
 		allowPlayerMove = false;
-		if (!isGameOver) 
-		{
+		if (!isGameOver) {
 			rollDiceButton.interactable = isPlayerTurn;
-            if (updateTurn)
-            {
+            if (updateTurn) {
                 turnCount++;
                 turnText.text = "Turn " + turnCount;
             }
@@ -316,8 +310,7 @@ public class UrGameController : MonoBehaviour
 				p.transform.localScale = Vector3.one * 0.99f;
 			}
 			enemyAI.EnemyTurn();
-		}
-		else {
+		} else {
 			foreach (var p in playerPieces) {
 				p.transform.localScale = Vector3.one;
 			}
@@ -351,8 +344,7 @@ public class UrGameController : MonoBehaviour
 		if (isPlayer) {
 			checkPath = playerBoardPositions;
 			checkPieces = playerPieces;
-		}
-		else {
+		} else {
 			checkPath = enemyBoardPositions;
 			checkPieces = enemyAI.enemyPieces;
 		}
@@ -362,7 +354,6 @@ public class UrGameController : MonoBehaviour
 				if (highlightPieces) {
 					p.ShowHighlight(true);
 				}
-
 				movable++;
 			}
 		}
@@ -407,40 +398,37 @@ public class UrGameController : MonoBehaviour
 		o.effectColor = baseOutlineColor;
 	}
 
-	//public void TriggerBark(bool isPlayer, List<string> triggerType, bool autoTrigger = false)
- //   {
-	//	float rand = Random.Range(0f, 1f);
+    public void TriggerBark(bool isPlayer, List<string> triggerType, bool autoTrigger = false)
+    {
+        float rand = Random.Range(0f, 1f);
 
-	//	//If we want this to disregard the random element, just manually set it to 0 so it's always below barkChance
-	//	if (autoTrigger) {
-	//		rand = 0f;
-	//	}
+        //If we want this to disregard the random element, just manually set it to 0 so it's always below barkChance
+        if (autoTrigger) {
+            rand = 0f;
+        }
 
-	//	//If you've actually triggered one, you can either do the corresponding brag or an insult
-	//	if (rand <= barkChance) {
-	//		if (Random.Range(0f, 1f) <= bragToInsultRatio || autoTrigger) {
-	//			//If the player did the cool thing, the player brags
-	//			if (isPlayer) {
-	//				playerBarks.DisplayFromList(triggerType);
-	//			}
-	//			//Otherwise, the enemy brags
-	//			else {
-	//				enemyBarks.DisplayFromList(triggerType);
-	//			}
-	//		}
-	//		else {
-	//			//If you're going to do the insult instead, it's the opposite
-	//			if (isPlayer) {
-	//				enemyBarks.DisplayInsult();
-	//			}
-	//			else {
-	//				playerBarks.DisplayInsult();
-	//			}
-	//		}
-	//	}
-	//}
+        //If you've actually triggered one, you can either do the corresponding brag or an insult
+        if (rand <= barkChance) {
+            if (Random.Range(0f, 1f) <= bragToInsultRatio || autoTrigger) {
+                //If the player did the cool thing, the player brags
+                if (isPlayer) {
+                    playerDialog.DisplayFromList(triggerType);
+                } else { //Otherwise, the enemy brags
+                    enemyDialog.DisplayFromList(triggerType);
+                }
+            } else {
+                //If you're going to do the insult instead, it's the opposite
+                if (isPlayer) {
+                    enemyDialog.DisplayInsult();
+                } else {
+                    enemyDialog.DisplayInsult();
+                }
+            }
+        }
+    }
 
-	public void PointScored(bool isPlayer, UrPiece c) {
+    public void PointScored(bool isPlayer, UrPiece c)
+    {
 		if (isPlayer) {
 			playerPieces.Remove(c);
 			c.GetComponent<MeshRenderer>().enabled = false;
@@ -448,8 +436,7 @@ public class UrGameController : MonoBehaviour
 			if (playerPieces.Count == 0) {
 				WinGame();
 			}
-		}
-		else {
+		} else {
 			enemyAI.enemyPieces.Remove(c);
 			c.GetComponent<MeshRenderer>().enabled = false;
 			Destroy(c.gameObject, 1f);
@@ -467,18 +454,10 @@ public class UrGameController : MonoBehaviour
 		AudioClip[] sounds = null;
 
 		switch (type) {
-			case (SoundTrigger.Rosette):
-				sounds = rosetteSounds;
-				break;
-			case (SoundTrigger.Capture):
-				sounds = captureSounds;
-				break;
-			case (SoundTrigger.LostTurn):
-				sounds = lostTurnSounds;
-				break;
-			case (SoundTrigger.OffBoard):
-				sounds = offBoardSounds;
-				break;
+			case (SoundTrigger.Rosette): sounds = rosetteSounds; break;
+			case (SoundTrigger.Capture): sounds = captureSounds; break;
+			case (SoundTrigger.LostTurn): sounds = lostTurnSounds; break;
+			case (SoundTrigger.OffBoard): sounds = offBoardSounds; break;
 		}
 
         sfxAud.clip = isPlayer ? sounds[0] : sounds[1];
@@ -506,30 +485,14 @@ public class UrGameController : MonoBehaviour
 
         gameOverUI.SetActive(true);
         modalBlocker.SetActive(true);
-        gameOverText.text = $"<size=60><b>Too Bad!</b></size>\nTotal Turns: {turnCount}\n\n";
+        gameOverText.text = $"<size=60><b>Too Bad!</b></size>\n\nTotal Turns: {turnCount}\n\n";
 	}
 
-	public int CurrentRoll {
-		get {
-			return currentRoll;
-		}
-	}
+	public int CurrentRoll { get { return currentRoll; } }
 
-	public bool IsPlayerTurn {
-		get {
-			return isPlayerTurn;
-		}
-	}
+	public bool IsPlayerTurn { get { return isPlayerTurn; } }
 
-	public bool AllowPlayerMove {
-		get {
-			return allowPlayerMove;
-		}
-	}
+	public bool AllowPlayerMove { get { return allowPlayerMove; } }
 
-	public bool IsGameOver {
-		get {
-			return isGameOver;
-		}
-	}
+	public bool IsGameOver { get { return isGameOver; } }
 }
