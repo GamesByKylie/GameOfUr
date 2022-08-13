@@ -155,7 +155,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 37a1f7cae44987a44856472291081cba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4359f1addddbe2c4ba2f3e2dca32fea0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -322,6 +322,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  portrait: {fileID: 1802976959471967337}
+  nameText: {fileID: 7084937040895980010}
+  subtitleText: {fileID: 2113605388262957261}
 --- !u!1 &4772987161080362180
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,14 +396,14 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Hero of the Argonauts
+  m_Text: Short Description Here
 --- !u!114 &3447345211651734340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,7 +647,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Jason
+  m_Text: Name
 --- !u!114 &1224073037546915744
 MonoBehaviour:
   m_ObjectHideFlags: 0

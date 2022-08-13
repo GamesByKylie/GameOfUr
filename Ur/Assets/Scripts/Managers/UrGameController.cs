@@ -69,6 +69,7 @@ public class UrGameController : MonoBehaviour
 
     private bool gamePaused = false;
     private bool settingsInitialized = false;
+	private bool pauseBuffer = false;
     
 	public void Awake() {
 		//Assign variables
@@ -99,17 +100,26 @@ public class UrGameController : MonoBehaviour
 	}
 
     public void PauseMinigame() {
-        gamePaused = !gamePaused;
-        if (!gamePaused) {
-            Time.timeScale = 1f;
-        }
-        pauseMenuAnim.SetTrigger("PauseMenuisActive");
-        modalBlocker.SetActive(gamePaused);
-        if (!settingsInitialized) {
-            settingsInitialized = true;
-            menuButtons.InitializeSettings();
-        }
+		if (!pauseBuffer) {
+			pauseBuffer = true;
+			StartCoroutine(RefreshPause());
+			gamePaused = !gamePaused;
+			if (!gamePaused) {
+				Time.timeScale = 1f;
+			}
+			pauseMenuAnim.SetTrigger("PauseMenuisActive");
+			modalBlocker.SetActive(gamePaused);
+			if (!settingsInitialized) {
+				settingsInitialized = true;
+				menuButtons.InitializeSettings();
+			}
+		}
+	}
 
+	private IEnumerator RefreshPause()
+	{
+		yield return new WaitForSeconds(1f);
+		pauseBuffer = false;
 	}
 
     public void SetGameSpeed(float speed)
@@ -143,14 +153,15 @@ public class UrGameController : MonoBehaviour
 
     public void RestartTutorial()
     {
-        //Whoops, how are we going to show all the nice little animations when we don't know the state of the board?
-        //We don't want pieces on top of each other, so we might need to temporarily turn off all the real pieces
-        //And then turn on some example dummy pieces that go away once the tutorial is completed
-        //And what if this happens mid-turn while the enemy is moving?
-        //We don't want the player to interrupt either turn, it could be used for exploits maybe
-        //So grey it out while it's not their turn, maybe?
-        //Also timescale has to be set to 1 so the animations will run!
+		StartCoroutine(DoRestartTutorial());
     }
+
+	private IEnumerator DoRestartTutorial()
+	{
+		PauseMinigame();
+		yield return new WaitForSeconds(1f);
+		StartTutorial();
+	}
 
     private void Update()
     {
@@ -159,10 +170,15 @@ public class UrGameController : MonoBehaviour
                 if (tutorialIndex < tutorial.Count - 1) {
                     DisplayNextTutorial();
                 } else if (tutorialIndex == tutorial.Count - 1) {
+					TutorialEndObjects(tutorialIndex);
                     FinishTutorial();
                 }
             }
-        }
+        } else {
+			if (Input.GetKeyDown(KeyCode.Escape)) {
+				PauseMinigame();
+			}
+		}
     }
 
     public void StartTutorial()
@@ -217,10 +233,8 @@ public class UrGameController : MonoBehaviour
     public void FinishTutorial()
     {
         waitingForInput = false;
-        modalBlocker.SetActive(false);
         displayBox.gameObject.SetActive(false);
-        playerPathLine.SetActive(true);
-        turnText.text = "Turn 0";
+        turnText.text = "Turn " + turnCount;
     }
 
     /// <summary>
@@ -474,6 +488,16 @@ public class UrGameController : MonoBehaviour
         gameOverUI.SetActive(true);
         modalBlocker.SetActive(true);
         gameOverText.text = $"<size=60><b>Congratulations!</b></size>\n\nTotal Turns: {turnCount}\n\n";
+		SaveManager.IncrementValue(SaveKeys.WinsHard);
+		SaveManager.IncrementValue(SaveKeys.TotalGamesHard);
+
+		if(SaveManager.LoadValue(SaveKeys.ShortestHard) > turnCount) {
+			SaveManager.SaveValue(SaveKeys.ShortestHard, turnCount);
+			gameOverText.text += "<b>New High Score</b>";
+		}
+		if (SaveManager.LoadValue(SaveKeys.LongestHard) < turnCount) {
+			SaveManager.SaveValue(SaveKeys.LongestHard, turnCount);
+		}
         //if current turns is lower than best score, append <b>New High Score!</b>
 	}
 
@@ -486,6 +510,8 @@ public class UrGameController : MonoBehaviour
         gameOverUI.SetActive(true);
         modalBlocker.SetActive(true);
         gameOverText.text = $"<size=60><b>Too Bad!</b></size>\n\nTotal Turns: {turnCount}\n\n";
+		SaveManager.IncrementValue(SaveKeys.LossesHard);
+		SaveManager.IncrementValue(SaveKeys.TotalGamesHard);
 	}
 
 	public int CurrentRoll { get { return currentRoll; } }

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIcon: {fileID: 21300000, guid: 15c66b43248264b4c86f4513d3ece425, type: 3}
   characterName: Bob II
+  subtitle: Placeholder Guy #2

@@ -62,58 +62,58 @@ public class SettingsManager : MonoBehaviour
 
     public static void InitializeSettings()
     {
-        if (!PlayerPrefs.HasKey("master_volume"))
+        if (!PlayerPrefs.HasKey(SaveKeys.MasterVolume))
         {
-            PlayerPrefs.SetFloat("master_volume", DEFAULT_MASTER_VOLUME);
+            PlayerPrefs.SetFloat(SaveKeys.MasterVolume, DEFAULT_MASTER_VOLUME);
         }
         else
         {
-            MasterVolume = PlayerPrefs.GetFloat("master_volume");
+            MasterVolume = PlayerPrefs.GetFloat(SaveKeys.MasterVolume);
         }
 
-        if (!PlayerPrefs.HasKey("sfx_volume"))
+        if (!PlayerPrefs.HasKey(SaveKeys.SFXVolume))
         {
-            PlayerPrefs.SetFloat("sfx_volume", DEFAULT_SFX_VOLUME);
+            PlayerPrefs.SetFloat(SaveKeys.SFXVolume, DEFAULT_SFX_VOLUME);
         }
         else
         {
-            SFXVolume = PlayerPrefs.GetFloat("sfx_volume");
+            SFXVolume = PlayerPrefs.GetFloat(SaveKeys.SFXVolume);
         }
 
-        if (!PlayerPrefs.HasKey("music_volume"))
+        if (!PlayerPrefs.HasKey(SaveKeys.MusicVolume))
         {
-            PlayerPrefs.SetFloat("music_volume", DEFAULT_MUSIC_VOLUME);
+            PlayerPrefs.SetFloat(SaveKeys.MusicVolume, DEFAULT_MUSIC_VOLUME);
         }
         else
         {
-            MusicVolume = PlayerPrefs.GetFloat("music_volume");
+            MusicVolume = PlayerPrefs.GetFloat(SaveKeys.MusicVolume);
         }
 
-        if (!PlayerPrefs.HasKey("animations_enabled"))
+        if (!PlayerPrefs.HasKey(SaveKeys.AnimationsEnabled))
         {
-            PlayerPrefs.SetString("animations_enabled", DEFAULT_ANIMATIONS.ToString());
+            PlayerPrefs.SetString(SaveKeys.AnimationsEnabled, DEFAULT_ANIMATIONS.ToString());
         }
         else
         {
-            AnimationsEnabled = PlayerPrefs.GetString("animations_enabled") == "True";
+            AnimationsEnabled = PlayerPrefs.GetString(SaveKeys.AnimationsEnabled) == "True";
         }
 
-        if (!PlayerPrefs.HasKey("screen_resolution"))
+        if (!PlayerPrefs.HasKey(SaveKeys.ScreenResolution))
         {
-            PlayerPrefs.SetInt("screen_resolution", DEFAULT_RESOLUTION);
+            PlayerPrefs.SetInt(SaveKeys.ScreenResolution, DEFAULT_RESOLUTION);
         }
         else
         {
-            ScreenResolution = PlayerPrefs.GetInt("screen_resolution");
+            ScreenResolution = PlayerPrefs.GetInt(SaveKeys.ScreenResolution);
         }
 
-        if (!PlayerPrefs.HasKey("fullscreen"))
+        if (!PlayerPrefs.HasKey(SaveKeys.FullscreenEnabled))
         {
-            PlayerPrefs.SetString("fullscreen", DEFAULT_FULLSCREEN.ToString());
+            PlayerPrefs.SetString(SaveKeys.FullscreenEnabled, DEFAULT_FULLSCREEN.ToString());
         }
         else
         {
-            Fullscreen = PlayerPrefs.GetString("fullscreen") == "True";
+            Fullscreen = PlayerPrefs.GetString(SaveKeys.FullscreenEnabled) == "True";
         }
     }
 
@@ -121,11 +121,12 @@ public class SettingsManager : MonoBehaviour
     {
         //These will also be saved whenever they're changed, but I figured let's check just in case
 
-        PlayerPrefs.SetFloat("master_volume", MasterVolume);
-        PlayerPrefs.SetFloat("sfx_volume", SFXVolume);
-        PlayerPrefs.SetFloat("music_volume", MusicVolume);
-        PlayerPrefs.SetString("animations_enabled", AnimationsEnabled.ToString());
-        PlayerPrefs.SetString("fullscreen", Fullscreen.ToString());
+        PlayerPrefs.SetFloat(SaveKeys.MasterVolume, MasterVolume);
+        PlayerPrefs.SetFloat(SaveKeys.SFXVolume, SFXVolume);
+        PlayerPrefs.SetFloat(SaveKeys.MusicVolume, MusicVolume);
+        PlayerPrefs.SetString(SaveKeys.AnimationsEnabled, AnimationsEnabled.ToString());
+		PlayerPrefs.SetInt(SaveKeys.ScreenResolution, ScreenResolution);
+		PlayerPrefs.SetString(SaveKeys.FullscreenEnabled, Fullscreen.ToString());
     }
 
     public static float MasterVolume
@@ -134,7 +135,7 @@ public class SettingsManager : MonoBehaviour
         set
         {
             masterVolume = value;
-            PlayerPrefs.SetFloat("master_volume", value);
+            PlayerPrefs.SetFloat(SaveKeys.MasterVolume, value);
             bgmSource.volume = masterVolume * musicVolume;
         }
     }
@@ -145,7 +146,7 @@ public class SettingsManager : MonoBehaviour
         set
         {
             sfxVolume = value;
-            PlayerPrefs.SetFloat("sfx_volume", value);
+            PlayerPrefs.SetFloat(SaveKeys.SFXVolume, value);
         }
     }
 
@@ -155,7 +156,7 @@ public class SettingsManager : MonoBehaviour
         set
         {
             musicVolume = value;
-            PlayerPrefs.SetFloat("music_volume", value);
+            PlayerPrefs.SetFloat(SaveKeys.MusicVolume, value);
             bgmSource.volume = masterVolume * musicVolume;
         }
     }
@@ -171,7 +172,7 @@ public class SettingsManager : MonoBehaviour
             screenResolution = Mathf.Clamp(value, 0, availableRes.Count - 1);
             Screen.SetResolution(availableRes[screenResolution].width, availableRes[screenResolution].height, fullscreen);
             MenuButtons.ResolutionChanged?.Invoke();
-            PlayerPrefs.SetInt("screen_resolution", value);
+            PlayerPrefs.SetInt(SaveKeys.ScreenResolution, value);
         }
     }
 
@@ -189,7 +190,7 @@ public class SettingsManager : MonoBehaviour
         set
         {
             animationsEnabled = value;
-            PlayerPrefs.SetString("animations_enabled", value.ToString());
+            PlayerPrefs.SetString(SaveKeys.AnimationsEnabled, value.ToString());
         }
     }
 
@@ -199,7 +200,7 @@ public class SettingsManager : MonoBehaviour
         set
         {
             fullscreen = value;
-            PlayerPrefs.SetString("fullscreen", value.ToString());
+            PlayerPrefs.SetString(SaveKeys.FullscreenEnabled, value.ToString());
             Screen.fullScreen = value;
             MenuButtons.ResolutionChanged?.Invoke();
             Screen.fullScreenMode = value ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;

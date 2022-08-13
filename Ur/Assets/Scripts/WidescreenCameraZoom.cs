@@ -17,10 +17,19 @@ public class WidescreenCameraZoom : MonoBehaviour
     private void Awake()
     {
         cam = GetComponent<Camera>();
-        MenuButtons.ResolutionChanged += CameraZoom;
     }
 
-    private void Start()
+	private void OnEnable()
+	{
+        MenuButtons.ResolutionChanged += CameraZoom;		
+	}
+
+	private void OnDisable()
+	{
+		MenuButtons.ResolutionChanged -= CameraZoom;
+	}
+
+	private void Start()
     {
         CameraZoom();        
     }

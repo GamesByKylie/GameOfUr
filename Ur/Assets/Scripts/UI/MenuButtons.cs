@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 [Serializable]
 public class MenuScreen
 {
-    public enum ScreenType { CharacterSelector, Settings, History, Credits }
+    public enum ScreenType { CharacterSelector, Settings, History, Credits, Stats }
 
     public ScreenType type;
     public GameObject screenObj;
@@ -113,6 +113,16 @@ public class MenuButtons : MonoBehaviour
         ToggleScreen(MenuScreen.ScreenType.Credits, false);
     }
 
+	public void OpenStats()
+	{
+		ToggleScreen(MenuScreen.ScreenType.Stats, true);
+	}
+
+	public void CloseStats()
+	{
+		ToggleScreen(MenuScreen.ScreenType.Stats, false);
+	}
+
     private void ToggleScreen(MenuScreen.ScreenType type, bool activate)
     {
         extraScreens.FirstOrDefault(x => x.type == type).screenObj.SetActive(activate);
@@ -176,6 +186,7 @@ public class MenuButtons : MonoBehaviour
     public void ResetPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
+		SaveManager.RestoreDefaults();
         SettingsManager.InitializeSettings();
     }
 }
