@@ -17,6 +17,7 @@ public class MenuScreen
 
 public class MenuButtons : MonoBehaviour
 {
+	public static Action CharacterSelected;
     public static Action ResolutionChanged;
 
     public GameObject modalBlocker;
@@ -25,52 +26,59 @@ public class MenuButtons : MonoBehaviour
     public Dropdown resolutionDropdown;
     public MenuScreen[] extraScreens;
     public SettingsFromPlayerPrefs[] settingsOptions;
+	public Button[] difficultyButtons;
 
     private bool initialized = false;
     private Coroutine resolutionConfirmRoutine;
     private int previousResolution;
 
-    public void LoadMainMenu()
-    {
+	private void OnEnable() {
+		CharacterSelected += EnableGameStart;
+	}
+
+	private void OnDisable() {
+		CharacterSelected -= EnableGameStart;
+	}
+
+	public void LoadMainMenu() {
         GameManager.LoadMainMenu();
     }
 
-    public void LoadGamePlay()
-    {
+    public void LoadGamePlay() {
+		Debug.Log($"Starting with difficulty {GameManager.SelectedDifficulty}");
         GameManager.LoadGamePlay();
     }
 
-    public void ExitGame()
-    {
+	private void SetDifficulty(UrAIController.AIDifficulty difficulty) {
+		GameManager.SelectedDifficulty = difficulty;
+	}
+	public void SetDifficultyEasy() {
+		SetDifficulty(UrAIController.AIDifficulty.Easy);
+	}
+	public void SetDifficultyMedium() {
+		SetDifficulty(UrAIController.AIDifficulty.Medium);
+	}
+	public void SetDifficultyHard() {
+		SetDifficulty(UrAIController.AIDifficulty.Hard);
+	}
+
+	public void ExitGame() {
         Application.Quit();
     }
 
-    public void OpenSettings()
-    {
-        ToggleScreen(MenuScreen.ScreenType.Settings, true);
-        if (!initialized)
-        {
-            InitializeSettings();
-        }
-    }
-
-    public void InitializeSettings()
-    {
+    public void InitializeSettings() {
         StartCoroutine(DoInitializeSettings());
     }
 
-    private IEnumerator DoInitializeSettings()
-    {
+    private IEnumerator DoInitializeSettings() {
         resolutionDropdown.ClearOptions();
-        foreach (var r in SettingsManager.AvailableResolutions)
-        {
+        foreach (var r in SettingsManager.AvailableResolutions) {
             resolutionDropdown.options.Add(new Dropdown.OptionData(r.width + "x" + r.height));
         }
 
         yield return null;
 
-        foreach (var s in settingsOptions)
-        {
+        foreach (var s in settingsOptions) {
             s.SetValueFromPref();
         }
 
@@ -78,88 +86,59 @@ public class MenuButtons : MonoBehaviour
         previousResolution = SettingsManager.ScreenResolution;
     }
 
-    public void OpenCharacterSelection()
-    {
-        ToggleScreen(MenuScreen.ScreenType.CharacterSelector, true);
-    }
-
-    public void CloseCharacterSelection()
-    {
-        ToggleScreen(MenuScreen.ScreenType.CharacterSelector, false);
-    }
-
-    public void CloseSettings()
-    {
-        ToggleScreen(MenuScreen.ScreenType.Settings, false);
-    }
-
-    public void OpenHistory()
-    {
-        ToggleScreen(MenuScreen.ScreenType.History, true);
-    }
-
-    public void CloseHistory()
-    {
-        ToggleScreen(MenuScreen.ScreenType.History, false);
-    }
-
-    public void OpenCredits()
-    {
-        ToggleScreen(MenuScreen.ScreenType.Credits, true);
-    }
-
-    public void CloseCredits()
-    {
-        ToggleScreen(MenuScreen.ScreenType.Credits, false);
-    }
-
-	public void OpenStats()
-	{
-		ToggleScreen(MenuScreen.ScreenType.Stats, true);
+	public void CharacterSelectionEnabled(bool enabled) {
+		MenuScreenEnabled(MenuScreen.ScreenType.CharacterSelector, enabled);
 	}
 
-	public void CloseStats()
-	{
-		ToggleScreen(MenuScreen.ScreenType.Stats, false);
+	public void SettingsEnabled(bool enabled) {
+		MenuScreenEnabled(MenuScreen.ScreenType.Settings, enabled);
+		if(enabled && !initialized) {
+			InitializeSettings();
+		}
 	}
 
-    private void ToggleScreen(MenuScreen.ScreenType type, bool activate)
-    {
+	public void HistoryEnabled(bool enabled) {
+		MenuScreenEnabled(MenuScreen.ScreenType.History, enabled);
+	}
+
+	public void CreditsEnabled(bool enabled) {
+		MenuScreenEnabled(MenuScreen.ScreenType.Credits, enabled);
+	}
+
+    public void StatsEnabled(bool enabled) {
+		MenuScreenEnabled(MenuScreen.ScreenType.Stats, enabled);
+	}
+
+    private void MenuScreenEnabled(MenuScreen.ScreenType type, bool activate) {
         extraScreens.FirstOrDefault(x => x.type == type).screenObj.SetActive(activate);
         modalBlocker.SetActive(activate);
     }
 
-    public void UpdateMasterVolume(System.Single volume)
-    {
+    public void UpdateMasterVolume(float volume) {
         SettingsManager.MasterVolume = volume;
     }
 
-    public void UpdateSFXVolume(System.Single volume)
-    {
+    public void UpdateSFXVolume(float volume) {
         SettingsManager.SFXVolume = volume;
     }
 
-    public void UpdateMusicVolume(System.Single volume)
-    {
+    public void UpdateMusicVolume(float volume) {
         SettingsManager.MusicVolume = volume;
     }
 
-    public void UpdateScreenResolution(Dropdown d)
-    {
+    public void UpdateScreenResolution(Dropdown d) {
         previousResolution = SettingsManager.ScreenResolution;
         SettingsManager.ScreenResolution = d.value;
         resolutionConfirmRoutine = StartCoroutine(DoConfirmResolution());
     }
 
-    public void ConfirmResolution()
-    {
+    public void ConfirmResolution() {
         StopCoroutine(resolutionConfirmRoutine);
         resolutionConfirmButton.interactable = false;
         resolutionConfirmText.text = "";
     }
 
-    private IEnumerator DoConfirmResolution()
-    {
+    private IEnumerator DoConfirmResolution() {
         resolutionConfirmButton.interactable = true;
         resolutionConfirmText.text = "Confirm? 3";
         yield return new WaitForSeconds(1);
@@ -173,20 +152,24 @@ public class MenuButtons : MonoBehaviour
         resolutionConfirmText.text = "";
     }
 
-    public void UpdateAnimationsEnabled(bool enabled)
-    {
+    public void UpdateAnimationsEnabled(bool enabled) {
         SettingsManager.AnimationsEnabled = enabled;
     }
 
-    public void UpdateFullscreen(bool enabled)
-    {
+    public void UpdateFullscreen(bool enabled) {
         SettingsManager.Fullscreen = enabled;
     }
 
-    public void ResetPlayerPrefs()
-    {
+    public void ResetPlayerPrefs() {
         PlayerPrefs.DeleteAll();
 		SaveManager.RestoreDefaults();
         SettingsManager.InitializeSettings();
     }
+
+	private void EnableGameStart() {
+		Debug.Log($"Toggling start buttons: {(GameManager.SelectedCharacter != null ? GameManager.SelectedCharacter.characterName : "null")}");
+		foreach(var b in difficultyButtons) {
+			b.interactable = GameManager.SelectedCharacter != null;
+		}
+	}
 }

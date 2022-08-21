@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UrAIController : MonoBehaviour
 {
+	public enum AIDifficulty { Easy, Medium, Hard }
+
 	public List<UrPiece> enemyPieces;
 
 	public float midTurnPause = 0.5f;
@@ -11,27 +14,40 @@ public class UrAIController : MonoBehaviour
     public float noAnimMidPause = 0.25f;
     public float noAnimEndPause = 0.5f;
 
+	[Range(0f, 1f)] public float easyAI = 0.5f;
+	[Range(0f, 1f)] public float mediumAI = 0.75f;
+	[Range(0f, 1f)] public float hardAI = 1f;
+
 	private UrGameController urGC;
 	private int currentRoll;
 	private bool showingBark = false;
 
-	private void Start() 
-	{
+	private void Start() {
 		urGC = GetComponent<UrGameController>();
 	}
 
-	public void EnemyTurn() 
-	{
+	private float OptimalMoveChance {
+		get {
+			if(GameManager.SelectedDifficulty == AIDifficulty.Easy) {
+				return easyAI;
+			} else if (GameManager.SelectedDifficulty == AIDifficulty.Medium) {
+				return mediumAI;
+			} else {
+				return hardAI;
+			}
+		}
+	}
+
+	public void EnemyTurn() {
 		if (!urGC.IsGameOver) {
 			currentRoll = urGC.GetDiceRoll();
 		}
 	}
 
-	public IEnumerator DoEnemyTurn() 
-	{
-		if (currentRoll != 0) 
-		{
+	public IEnumerator DoEnemyTurn() {
+		if (currentRoll != 0) {
 			showingBark = false;
+
 			//Picks out what pieces are valid
 			List<UrPiece> movablePieces = new List<UrPiece>();
 			for (int i = 0; i < enemyPieces.Count; i++) {
@@ -41,8 +57,7 @@ public class UrAIController : MonoBehaviour
 			}
 
 			bool redoTurn = false;
-			if (movablePieces.Count > 0) 
-			{
+			if (movablePieces.Count > 0) {
 				//Pick what piece to move
 				UrPiece pieceToMove = ChoosePieceToMove(movablePieces);
 				pieceToMove.ShowHighlight(true);
@@ -67,10 +82,9 @@ public class UrAIController : MonoBehaviour
                 yield return new WaitForSeconds(SettingsManager.AnimationsEnabled ? midTurnPause : noAnimMidPause);
 
                 //Finalize the move
-
                 urGC.PlayMoveSound();
-
 				bool captureThisTurn = false;
+
 				//Check for a capture
 				if (nextTile.OppositeOccupyingPiece(false)) {
 					nextTile.RemoveCurrentFromBoard();
@@ -80,7 +94,6 @@ public class UrAIController : MonoBehaviour
                         urGC.TriggerBark(false, GameManager.UrCaptureText);
                         showingBark = true;
                     }
-
                     urGC.PlaySoundFX(UrGameController.SoundTrigger.Capture, false);
 				}
 
@@ -111,19 +124,16 @@ public class UrAIController : MonoBehaviour
                 }
 
 				//If you're moving off the board
-				if (pieceToMove.BoardIndex == urGC.playerBoardPositions.Count - 1) 
-				{
+				if (pieceToMove.BoardIndex == urGC.playerBoardPositions.Count - 1) {
 					//We don't have to check for other barks here because if you're moving off the board, you're not moving on, or hitting a rosette, or capturing
 					urGC.TriggerBark(false, GameManager.UrMoveOffText, true);
 					urGC.PointScored(false, pieceToMove);
 					urGC.PlaySoundFX(UrGameController.SoundTrigger.OffBoard, false);
-				}
-				else {
+				} else {
 					nextTile.SetOccupied(pieceToMove);
 				}
 				
-				if (nextTile.isRosette) 
-				{
+				if (nextTile.isRosette) {
 					if (captureThisTurn) {
 						urGC.ShowAlertText("Captured! And Opponent Rolls Again!");
 					} else {
@@ -139,17 +149,13 @@ public class UrAIController : MonoBehaviour
 					redoTurn = true;
 				}
 			}
-
             StartCoroutine(urGC.WaitToSwitchTurn(!redoTurn, !redoTurn, SettingsManager.AnimationsEnabled ? endTurnPause : noAnimEndPause));
-
 		}
 	}
 
-	private UrPiece ChoosePieceToMove(List<UrPiece> movablePieceList) 
-	{
+	private UrPiece ChoosePieceToMove(List<UrPiece> movablePieceList) {
 		//If there's only one piece, just return that without wasting time doing the other processing
-		if (movablePieceList.Count == 1) 
-		{
+		if (movablePieceList.Count == 1) {
 			//Debug.Log("Only one piece can move, taking that move");
 			return movablePieceList[0];
 		}
@@ -160,65 +166,89 @@ public class UrAIController : MonoBehaviour
 		//Singular for-loops are pretty efficient, especially given none of these will ever run more than 3 times
 		//I find this to be nicely readable and debug-able
 		List<UrPiece> potentialPieces = new List<UrPiece>();
+		bool optimalMove = Random.Range(0f, 1f) <= OptimalMoveChance;
 		
 		//1. Move piece off the end of the board
-		for (int i = 0; i < movablePieceList.Count; i++) 
-		{
-			if (movablePieceList[i].BoardIndex + currentRoll == urGC.enemyBoardPositions.Count - 1) 
-			{
+		for (int i = 0; i < movablePieceList.Count; i++) {
+			if (movablePieceList[i].BoardIndex + currentRoll == urGC.enemyBoardPositions.Count - 1) {
 				potentialPieces.Add(movablePieceList[i]);
 			}
 		}
-		if (potentialPieces.Count != 0) 
-		{
-			Debug.Log("At least one piece can move off the board, taking that move");
-			return potentialPieces.RandomElement();
+		if (potentialPieces.Count != 0) {
+			if (optimalMove || potentialPieces.Count == enemyPieces.Count) {
+				Debug.Log("At least one piece can move off the board, taking that move");
+				return potentialPieces.RandomElement();
+			} else {
+				Debug.Log("Enemy making a sub-optimal move other than moving off the board");
+				movablePieceList.RemoveAll(x => potentialPieces.Contains(x));
+				return movablePieceList.RandomElement();
+			}
 		}
 
 		//2. Capture one of the player's pieces
-		for (int i = 0; i < movablePieceList.Count; i++) 
-		{
+		for (int i = 0; i < movablePieceList.Count; i++) {
 			if (urGC.enemyBoardPositions[movablePieceList[i].BoardIndex + currentRoll].OppositeOccupyingPiece(false)) {
 				potentialPieces.Add(movablePieceList[i]);
 			}
 		}
-		if (potentialPieces.Count != 0) 
-		{
-			Debug.Log("At least one piece can capture a player piece, taking that move");
-			return potentialPieces.RandomElement();
+		if (potentialPieces.Count != 0) {
+			if (optimalMove || potentialPieces.Count == enemyPieces.Count) {
+				Debug.Log("At least one piece can capture a player piece, taking that move");
+				return potentialPieces.RandomElement();
+			} else {
+				Debug.Log("Enemy making a sub-optimal move other than capturing");
+				movablePieceList.RemoveAll(x => potentialPieces.Contains(x));
+				return movablePieceList.RandomElement();
+			}
+
 		}
 
 		//3. Land on a rosette and roll again
-		for (int i = 0; i < movablePieceList.Count; i++) 
-		{
+		for (int i = 0; i < movablePieceList.Count; i++) {
 			if (urGC.enemyBoardPositions[movablePieceList[i].BoardIndex + currentRoll].isRosette) {
 				potentialPieces.Add(movablePieceList[i]);
 			}
 		}
-		if (potentialPieces.Count != 0) 
-		{
-			Debug.Log("At least one piece can land on a rosette, taking that move");
-			return potentialPieces.RandomElement();
+		if (potentialPieces.Count != 0) {
+			if (optimalMove || potentialPieces.Count == enemyPieces.Count) {
+				Debug.Log("At least one piece can land on a rosette, taking that move");
+				return potentialPieces.RandomElement();
+			} else {
+				Debug.Log("Enemy making a sub-optimal move other than landing on a rosette");
+				movablePieceList.RemoveAll(x => potentialPieces.Contains(x));
+				return movablePieceList.RandomElement();
+			}
 		}
 
 		//4. Move a piece off of the board onto it
-		for (int i = 0; i < movablePieceList.Count; i++) 
-		{
+		for (int i = 0; i < movablePieceList.Count; i++) {
 			//If it's in this list, it can already be moved, so you just need to check if it's off the board
 			if (movablePieceList[i].BoardIndex == -1) {
 				potentialPieces.Add(movablePieceList[i]);
 			}
 		}
-		if (potentialPieces.Count != 0) 
-		{
-			Debug.Log("At least one piece can move onto the board, taking that move");
-			return potentialPieces.RandomElement();
+		if (potentialPieces.Count != 0) {
+			if (optimalMove || potentialPieces.Count == enemyPieces.Count) {
+				Debug.Log("At least one piece can move onto the board, taking that move");
+				return potentialPieces.RandomElement();
+			} else {
+				Debug.Log("Enemy making a sub-optimal move other than moving onto the board");
+				movablePieceList.RemoveAll(x => potentialPieces.Contains(x));
+				return movablePieceList.RandomElement();
+			}
 		}
 
 		//If no piece can do any of those things, choose at random
-
 		Debug.Log("No priority moves available, moving a piece at random");
-		return movablePieceList[0];
+		return movablePieceList.RandomElement();
 	}
 
+	private UrPiece SubOptimalMove(List<UrPiece> allMovablePieces, List<UrPiece> optimalMovePieces) {
+		List<UrPiece> subOptimalPieces = allMovablePieces.Where(x => !optimalMovePieces.Contains(x)).ToList();
+		if(subOptimalPieces.Count > 0) {
+			return subOptimalPieces.RandomElement();
+		} else { //If there are no sub-optimal moves (ie at the beginning and there's no choice but to move onto the board)
+			return allMovablePieces.RandomElement();
+		}
+	}
 }

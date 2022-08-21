@@ -1169,7 +1169,7 @@ PrefabInstance:
     - target: {fileID: 8535597260151897665, guid: 797112d2da772904ca231407f742ee61,
         type: 3}
       propertyPath: m_Name
-      value: Menu Button
+      value: Back Button
       objectReference: {fileID: 0}
     - target: {fileID: 8535597261503505509, guid: 797112d2da772904ca231407f742ee61,
         type: 3}
@@ -1199,7 +1199,7 @@ PrefabInstance:
     - target: {fileID: 8535597261553962778, guid: 797112d2da772904ca231407f742ee61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8535597261553962778, guid: 797112d2da772904ca231407f742ee61,
         type: 3}
@@ -1214,7 +1214,7 @@ PrefabInstance:
     - target: {fileID: 8535597261553962778, guid: 797112d2da772904ca231407f742ee61,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 56
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8535597261553962782, guid: 797112d2da772904ca231407f742ee61,
         type: 3}

@@ -10,21 +10,23 @@ public class GameManager : MonoBehaviour
     public Text loadingText;
     public bool goToMainMenu = false;
 
-    public static PlayableCharacter SelectedCharacter;
-    public static List<string> UrFlavor;
-    public static List<string> UrInsults;
-    public static List<string> UrWinText;
-    public static List<string> UrLoseText;
-    public static List<string> UrRosetteText;
-    public static List<string> UrFlipText;
-    public static List<string> UrCaptureText;
-    public static List<string> UrMoveOnText;
-    public static List<string> UrMoveOffText;
-
     private static Scene persistantScene;
     private static GameManager instance;
 
-    void Awake()
+	public static List<CrewMember> MasterCrewList { get; set; }
+	public static UrAIController.AIDifficulty SelectedDifficulty { get; set; }
+	public static PlayableCharacter SelectedCharacter { get; set; }
+	public static List<string> UrFlavor { get; private set; }
+	public static List<string> UrInsults { get; private set; }
+	public static List<string> UrWinText { get; private set; }
+	public static List<string> UrLoseText { get; private set; }
+	public static List<string> UrRosetteText { get; private set; }
+	public static List<string> UrFlipText { get; private set; }
+	public static List<string> UrCaptureText { get; private set; }
+	public static List<string> UrMoveOnText { get; private set; }
+	public static List<string> UrMoveOffText { get; private set; }
+
+	void Awake()
     {
         if (instance != null)
         {
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             instance.SetLoadingText("");
             MasterCrewList = CSVLoader.LoadMasterCrewRoster();
-            CSVLoader.LoadUrText(out UrFlavor, out UrRosetteText, out UrCaptureText, out UrFlipText, out UrMoveOffText, out UrMoveOnText, out UrLoseText, out UrWinText, out UrInsults);
+            CSVLoader.LoadUrText();
             persistantScene = SceneManager.GetSceneByBuildIndex(0);
             if (goToMainMenu)
             {
@@ -43,6 +45,19 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+	public static void SetTextLists(List<string> flavor, List<string> insults, List<string> win, List<string> lose, List<string> rosette, List<string> flip, List<string> capture,
+		List<string> moveOn, List<string> moveOff) {
+		UrFlavor = flavor;
+		UrInsults = insults;
+		UrWinText = win;
+		UrLoseText = lose;
+		UrRosetteText = rosette;
+		UrFlipText = flip;
+		UrCaptureText = capture;
+		UrMoveOnText = moveOn;
+		UrMoveOffText = moveOff;
+	}
 
     //Since we're using Async scene loading, we need to do that through a coroutine
     //But it's going to be much, much more convenient if we can call these scene loaders through static methods
@@ -115,6 +130,4 @@ public class GameManager : MonoBehaviour
             loadingText.text = text;
         }
     }
-
-    public static List<CrewMember> MasterCrewList { get; set; }
 }

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa3938d828d9b054488fa136faa659e5, type: 3}
-  m_Name: BobII
+  m_Name: Wenamun
   m_EditorClassIdentifier: 
-  characterIcon: {fileID: 21300000, guid: 15c66b43248264b4c86f4513d3ece425, type: 3}
-  characterName: Bob II
-  subtitle: Placeholder Guy #2
+  characterIcon: {fileID: 21300000, guid: 7d098cc7449970b4dbfcf0147cde64f6, type: 3}
+  characterName: Wenamun
+  subtitle: Priest of Amun

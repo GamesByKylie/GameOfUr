@@ -10,15 +10,24 @@ public class CharacterSelectorButton : MonoBehaviour
     public Text nameText;
     public Text subtitleText;
 
-    private void Start()
-    {
+	private Toggle tog;
+	
+    private void Start() {
         portrait.sprite = character.characterIcon;
         nameText.text = character.characterName;
         subtitleText.text = character.subtitle;
+		tog = GetComponent<Toggle>();
     }
 
-    public void SetCharacter()
-    {
-        GameManager.SelectedCharacter = character;
+    public void SetCharacter(bool toggle) {
+		if (toggle) {
+			if (tog.group.allowSwitchOff) {
+				tog.group.allowSwitchOff = false;
+			}
+			if(GameManager.SelectedCharacter != character) {
+				GameManager.SelectedCharacter = character;
+				MenuButtons.CharacterSelected?.Invoke();
+			}
+		}
     }
 }

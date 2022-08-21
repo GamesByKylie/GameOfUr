@@ -98,18 +98,17 @@ public static class CSVLoader
 		}
 	}
 
-	public static void LoadUrText(out List<string> introFlavor, out List<string> rosette, out List<string> capture, out List<string> flip, out List<string> moveOff,
-		out List<string> moveOn, out List<string> lose, out List<string> win, out List<string> insult) 
+	public static void LoadUrText() 
 	{
-		introFlavor = new List<string>();
-		rosette = new List<string>();
-		capture = new List<string>();
-		flip = new List<string>();
-		moveOff = new List<string>();
-		moveOn = new List<string>();
-		lose = new List<string>();
-		win = new List<string>();
-		insult = new List<string>();
+		List<string> introFlavor = new List<string>();
+		List<string> insult = new List<string>();
+		List<string> win = new List<string>();
+		List<string> lose = new List<string>();
+		List<string> rosette = new List<string>();
+		List<string> flip = new List<string>();
+		List<string> capture = new List<string>();
+		List<string> moveOn = new List<string>();
+		List<string> moveOff = new List<string>();
 
 		char[] lineDelimiter = new char[] { '@' };
 		char newline = '%';
@@ -133,6 +132,8 @@ public static class CSVLoader
 				default: Debug.Log($"Ur text line {i} not marked correctly: {texts[1]}!"); break;
 			}
 		}
+
+		GameManager.SetTextLists(introFlavor, insult, win, lose, rosette, flip, capture, moveOn, moveOff);
 	}
 
 	static string TryLoadFromGameFolder(string filename) {

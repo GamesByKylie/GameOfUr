@@ -488,15 +488,38 @@ public class UrGameController : MonoBehaviour
         gameOverUI.SetActive(true);
         modalBlocker.SetActive(true);
         gameOverText.text = $"<size=60><b>Congratulations!</b></size>\n\nTotal Turns: {turnCount}\n\n";
-		SaveManager.IncrementValue(SaveKeys.WinsHard);
-		SaveManager.IncrementValue(SaveKeys.TotalGamesHard);
 
-		if(SaveManager.LoadValue(SaveKeys.ShortestHard) > turnCount) {
-			SaveManager.SaveValue(SaveKeys.ShortestHard, turnCount);
-			gameOverText.text += "<b>New High Score</b>";
+		string winsKey, totalKey, shortestKey, longestKey;
+		switch (GameManager.SelectedDifficulty) {
+			case UrAIController.AIDifficulty.Easy:
+				winsKey = SaveKeys.WinsEasy;
+				totalKey = SaveKeys.TotalGamesEasy;
+				shortestKey = SaveKeys.ShortestEasy;
+				longestKey = SaveKeys.LongestEasy;
+				break;
+			case UrAIController.AIDifficulty.Medium:
+				winsKey = SaveKeys.WinsMedium;
+				totalKey = SaveKeys.TotalGamesMedium;
+				shortestKey = SaveKeys.ShortestMedium;
+				longestKey = SaveKeys.LongestMedium;
+				break;
+			default:
+				winsKey = SaveKeys.WinsHard;
+				totalKey = SaveKeys.TotalGamesHard;
+				shortestKey = SaveKeys.ShortestHard;
+				longestKey = SaveKeys.LongestHard;
+				break;
 		}
-		if (SaveManager.LoadValue(SaveKeys.LongestHard) < turnCount) {
-			SaveManager.SaveValue(SaveKeys.LongestHard, turnCount);
+
+		SaveManager.IncrementValue(winsKey);
+		SaveManager.IncrementValue(totalKey);
+
+		if(SaveManager.LoadValue(shortestKey) > turnCount) {
+			SaveManager.SaveValue(shortestKey, turnCount);
+			gameOverText.text += "<b>New Fastest Win</b>";
+		}
+		if (SaveManager.LoadValue(longestKey) < turnCount) {
+			SaveManager.SaveValue(longestKey, turnCount);
 		}
         //if current turns is lower than best score, append <b>New High Score!</b>
 	}
