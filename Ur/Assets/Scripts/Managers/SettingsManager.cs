@@ -40,18 +40,14 @@ public class SettingsManager : MonoBehaviour
     private void Awake()
     {
         List<Resolution> potentialRes = Screen.resolutions.Select(r => new Resolution { width = r.width, height = r.height }).Distinct().ToList();
-        foreach (var r in potentialRes)
-        {
-            foreach (var s in supportedResolutions)
-            {
-                if (s.width == r.width && s.height == r.height)
-                {
+        foreach (var r in potentialRes) {
+            foreach (var s in supportedResolutions) {
+                if (s.width == r.width && s.height == r.height) {
                     //availableRes.Add(r);
                 }
             }
         }
-        if (availableRes.Count == 0)
-        {
+        if (availableRes.Count == 0) {
             availableRes = supportedResolutions.ToList();
         }
         availableRes.OrderByDescending(r => r.width);
@@ -60,65 +56,54 @@ public class SettingsManager : MonoBehaviour
         InitializeSettings();
     }
 
-    public static void InitializeSettings()
-    {
-        if (!PlayerPrefs.HasKey(SaveKeys.MasterVolume))
-        {
+    public static void InitializeSettings() {
+        if (!PlayerPrefs.HasKey(SaveKeys.MasterVolume)) {
             PlayerPrefs.SetFloat(SaveKeys.MasterVolume, DEFAULT_MASTER_VOLUME);
-        }
-        else
-        {
+        } else {
             MasterVolume = PlayerPrefs.GetFloat(SaveKeys.MasterVolume);
         }
 
-        if (!PlayerPrefs.HasKey(SaveKeys.SFXVolume))
-        {
+        if (!PlayerPrefs.HasKey(SaveKeys.SFXVolume)) {
             PlayerPrefs.SetFloat(SaveKeys.SFXVolume, DEFAULT_SFX_VOLUME);
-        }
-        else
-        {
+        } else {
             SFXVolume = PlayerPrefs.GetFloat(SaveKeys.SFXVolume);
         }
 
-        if (!PlayerPrefs.HasKey(SaveKeys.MusicVolume))
-        {
+        if (!PlayerPrefs.HasKey(SaveKeys.MusicVolume)) {
             PlayerPrefs.SetFloat(SaveKeys.MusicVolume, DEFAULT_MUSIC_VOLUME);
-        }
-        else
-        {
+        } else {
             MusicVolume = PlayerPrefs.GetFloat(SaveKeys.MusicVolume);
         }
 
-        if (!PlayerPrefs.HasKey(SaveKeys.AnimationsEnabled))
-        {
+        if (!PlayerPrefs.HasKey(SaveKeys.AnimationsEnabled)) {
             PlayerPrefs.SetString(SaveKeys.AnimationsEnabled, DEFAULT_ANIMATIONS.ToString());
-        }
-        else
-        {
+        } else {
             AnimationsEnabled = PlayerPrefs.GetString(SaveKeys.AnimationsEnabled) == "True";
         }
 
-        if (!PlayerPrefs.HasKey(SaveKeys.ScreenResolution))
-        {
+        if (!PlayerPrefs.HasKey(SaveKeys.ScreenResolution)) {
             PlayerPrefs.SetInt(SaveKeys.ScreenResolution, DEFAULT_RESOLUTION);
-        }
-        else
-        {
+        } else {
             ScreenResolution = PlayerPrefs.GetInt(SaveKeys.ScreenResolution);
         }
 
-        if (!PlayerPrefs.HasKey(SaveKeys.FullscreenEnabled))
-        {
+        if (!PlayerPrefs.HasKey(SaveKeys.FullscreenEnabled)) {
             PlayerPrefs.SetString(SaveKeys.FullscreenEnabled, DEFAULT_FULLSCREEN.ToString());
-        }
-        else
-        {
+        } else {
             Fullscreen = PlayerPrefs.GetString(SaveKeys.FullscreenEnabled) == "True";
         }
     }
 
-    private void OnApplicationQuit()
-    {
+	public static void RestoreDefaults() {
+		PlayerPrefs.SetFloat(SaveKeys.MasterVolume, DEFAULT_MASTER_VOLUME);
+		PlayerPrefs.SetFloat(SaveKeys.SFXVolume, DEFAULT_SFX_VOLUME);
+		PlayerPrefs.SetFloat(SaveKeys.MusicVolume, DEFAULT_MUSIC_VOLUME);
+		PlayerPrefs.SetString(SaveKeys.AnimationsEnabled, DEFAULT_ANIMATIONS.ToString());
+		PlayerPrefs.SetInt(SaveKeys.ScreenResolution, DEFAULT_RESOLUTION);
+		PlayerPrefs.SetString(SaveKeys.FullscreenEnabled, DEFAULT_FULLSCREEN.ToString());
+	}
+
+    private void OnApplicationQuit() {
         //These will also be saved whenever they're changed, but I figured let's check just in case
 
         PlayerPrefs.SetFloat(SaveKeys.MasterVolume, MasterVolume);
@@ -129,46 +114,35 @@ public class SettingsManager : MonoBehaviour
 		PlayerPrefs.SetString(SaveKeys.FullscreenEnabled, Fullscreen.ToString());
     }
 
-    public static float MasterVolume
-    {
+    public static float MasterVolume {
         get { return masterVolume; }
-        set
-        {
+        set {
             masterVolume = value;
             PlayerPrefs.SetFloat(SaveKeys.MasterVolume, value);
             bgmSource.volume = masterVolume * musicVolume;
         }
     }
 
-    public static float SFXVolume
-    {
+    public static float SFXVolume {
         get { return sfxVolume; }
-        set
-        {
+        set {
             sfxVolume = value;
             PlayerPrefs.SetFloat(SaveKeys.SFXVolume, value);
         }
     }
 
-    public static float MusicVolume
-    {
+    public static float MusicVolume {
         get { return musicVolume; }
-        set
-        {
+        set {
             musicVolume = value;
             PlayerPrefs.SetFloat(SaveKeys.MusicVolume, value);
             bgmSource.volume = masterVolume * musicVolume;
         }
     }
 
-    public static int ScreenResolution
-    {
-        get
-        {
-            return screenResolution;
-        }
-        set
-        {
+    public static int ScreenResolution {
+        get { return screenResolution; }
+        set {
             screenResolution = Mathf.Clamp(value, 0, availableRes.Count - 1);
             Screen.SetResolution(availableRes[screenResolution].width, availableRes[screenResolution].height, fullscreen);
             MenuButtons.ResolutionChanged?.Invoke();
@@ -176,29 +150,19 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    public static IEnumerable<Resolution> AvailableResolutions
-    {
-        get
-        {
-            return availableRes;
-        }
-    }
+    public static IEnumerable<Resolution> AvailableResolutions { get { return availableRes; } }
 
-    public static bool AnimationsEnabled
-    {
+    public static bool AnimationsEnabled {
         get { return animationsEnabled; }
-        set
-        {
+        set {
             animationsEnabled = value;
             PlayerPrefs.SetString(SaveKeys.AnimationsEnabled, value.ToString());
         }
     }
 
-    public static bool Fullscreen
-    {
+    public static bool Fullscreen {
         get { return fullscreen; }
-        set
-        {
+        set {
             fullscreen = value;
             PlayerPrefs.SetString(SaveKeys.FullscreenEnabled, value.ToString());
             Screen.fullScreen = value;

@@ -50,8 +50,19 @@ public class TavernaMiniGameDialog : MonoBehaviour
 	}
 
 	public void CloseDialog() {
-        StopCoroutine(displayRoutine);
+		if(displayRoutine != null) {
+	        StopCoroutine(displayRoutine);
+		}
 		textBackground.SetActive(false);
+	}
+
+	public virtual void ShowCharacterInfo() {
+		if(displayRoutine != null) {
+			StopCoroutine(displayRoutine);
+		}
+
+		textBackground.SetActive(true);
+		dialog.text = GameManager.SelectedCharacter.characterInfo;
 	}
 
     private IEnumerator AutoCloseDialog()

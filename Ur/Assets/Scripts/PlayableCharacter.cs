@@ -8,4 +8,6 @@ public class PlayableCharacter : ScriptableObject
     public Sprite characterIcon;
     public string characterName;
     public string subtitle;
+	[TextArea(3, 10)]
+	public string characterInfo;
 }

@@ -15,3 +15,8 @@ MonoBehaviour:
   characterIcon: {fileID: 21300000, guid: 7d098cc7449970b4dbfcf0147cde64f6, type: 3}
   characterName: Wenamun
   subtitle: Priest of Amun
+  characterInfo: "In the fictional Story of Wenamun, set in the time of Pharaoh Ramesses
+    XI (12 th - 11 th c BC),\r Wenamun, a priest of Amun at Karnack, traveled to
+    Phoenician Byblos to obtain cedar wood for the boat of the\r god Amn. He is robbed,
+    received poorly, cheated, humiliated, nearly killed by an angry mob, and finally
+    a suppliant\r to Queen Habti in Cyprus."

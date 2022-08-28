@@ -15,3 +15,9 @@ MonoBehaviour:
   characterIcon: {fileID: 21300000, guid: 4359f1addddbe2c4ba2f3e2dca32fea0, type: 3}
   characterName: Enmerkar
   subtitle: King of Uruk
+  characterInfo: Enmerkar was an ancient Sumerian hero and the King of Uruk. He is
+    a real historical figure who lived between the end of the 4th and start of the
+    3rd millennium BC. He was known as the son of the sun god Utu, brother of the
+    goddess Inanna. He warred against the rival city Aratta, whose wealth in stone
+    and metal he sought in order to build a temple for the god for the god Enki in
+    Eridu. The lord of Aratta eventually had to yield.

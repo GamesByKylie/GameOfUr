@@ -20,9 +20,9 @@ TagManager:
   - 
   - Dice
   - Path
-  - player
+  - GamePiece
   - GameSquare
-  - 
+  - MainPath
   - 
   - 
   - 

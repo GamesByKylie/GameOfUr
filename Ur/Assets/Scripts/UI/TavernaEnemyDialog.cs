@@ -24,4 +24,9 @@ public class TavernaEnemyDialog : TavernaMiniGameDialog
             portrait.sprite = Resources.Load<Sprite>(DefaultPortrait);
         }
     }
+
+	public override void ShowCharacterInfo() {
+		base.ShowCharacterInfo();
+		dialog.text = crew.CrewDescription;
+	}
 }
