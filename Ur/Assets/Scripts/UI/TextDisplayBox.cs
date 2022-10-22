@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextDisplayBox : MonoBehaviour
+public class TextDisplayBox : MenuPanelAnimator
 {
-    public Animator anim;
     public Vector2 textPadding;
 
     [SerializeField] private Text messageText = null;

@@ -105,7 +105,10 @@ public class UrGameController : MonoBehaviour
 			StartCoroutine(RefreshPause());
 			gamePaused = !gamePaused;
 			if (!gamePaused) {
+				GameManager.PlayMenuOpen();
 				Time.timeScale = 1f;
+			} else {
+				GameManager.PlayMenuClosed();
 			}
 			pauseMenuAnim.SetTrigger("PauseMenuisActive");
 			modalBlocker.SetActive(gamePaused);
@@ -118,7 +121,7 @@ public class UrGameController : MonoBehaviour
 
 	private IEnumerator RefreshPause()
 	{
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.5f);
 		pauseBuffer = false;
 	}
 

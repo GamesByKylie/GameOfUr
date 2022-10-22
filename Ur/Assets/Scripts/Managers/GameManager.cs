@@ -8,9 +8,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Text loadingText;
+	public AudioSource sfxSource;
     public bool goToMainMenu = false;
 
-    private static Scene persistantScene;
+	[Header("Region")]
+	public AudioClip buttonHoverSound;
+	public AudioClip buttonClickSound;
+	public AudioClip menuOpenSound;
+	public AudioClip menuCloseSound;
+	public AudioClip gameStartSound;
+
+	private static Scene persistantScene;
     private static GameManager instance;
 
 	public static List<CrewMember> MasterCrewList { get; set; }
@@ -26,25 +34,47 @@ public class GameManager : MonoBehaviour
 	public static List<string> UrMoveOnText { get; private set; }
 	public static List<string> UrMoveOffText { get; private set; }
 
-	void Awake()
-    {
-        if (instance != null)
-        {
+	void Awake() {
+        if (instance != null) {
             Destroy(gameObject);
-        }
-        else
-        {
+        } else {
             instance = this;
             instance.SetLoadingText("");
             MasterCrewList = CSVLoader.LoadMasterCrewRoster();
             CSVLoader.LoadUrText();
             persistantScene = SceneManager.GetSceneByBuildIndex(0);
-            if (goToMainMenu)
-            {
+            if (goToMainMenu) {
                 LoadMainMenu();
             }
         }
     }
+
+	public static void PlaySFX(AudioClip clip) {
+		instance.sfxSource.Stop();
+		instance.sfxSource.volume = SettingsManager.MasterVolume * SettingsManager.SFXVolume;
+		instance.sfxSource.clip = clip;
+		instance.sfxSource.Play();
+	}
+
+	public static void PlayButtonHover() {
+		PlaySFX(instance.buttonHoverSound);
+	}
+
+	public static void PlayButtonClick() {
+		PlaySFX(instance.buttonClickSound);
+	}
+
+	public static void PlayMenuOpen() {
+		PlaySFX(instance.menuOpenSound);
+	}
+
+	public static void PlayMenuClosed() {
+		PlaySFX(instance.menuCloseSound);
+	}
+
+	public static void PlayGameStart() {
+		PlaySFX(instance.gameStartSound);
+	}
 
 	public static void SetTextLists(List<string> flavor, List<string> insults, List<string> win, List<string> lose, List<string> rosette, List<string> flip, List<string> capture,
 		List<string> moveOn, List<string> moveOff) {
@@ -70,34 +100,27 @@ public class GameManager : MonoBehaviour
     //(because this is in the master scene, we can't just assign it as a variable in the inspector)
     //We will still have to write new methods to call these from buttons, but that's much easier
     //I'm not even sure if you can start a coroutine through a button without another encapsulating normal method, I don't think you can
-    public static void LoadMainMenu()
-    {
+    public static void LoadMainMenu() {
         instance.StartCoroutine(instance.LoadScene(1));
     }
 
-    public static void LoadGamePlay()
-    {
+    public static void LoadGamePlay() {
         instance.StartCoroutine(instance.LoadScene(2));
     }
 
-    private IEnumerator LoadScene(int index)
-    {
+    private IEnumerator LoadScene(int index) {
         //If you're loading a scene from the pause menu, timeScale is 0, so we need to reset it
         //Most of this will still work, but not the artificially inflated loading
         Time.timeScale = 1;
-        if (SceneManager.GetSceneByBuildIndex(index) == null)
-        {
+        if (SceneManager.GetSceneByBuildIndex(index) == null) {
             Debug.Log($"Scene at index {index} is null");
         }
 
-        if (SceneManager.GetActiveScene().Equals(persistantScene))
-        {
+        if (SceneManager.GetActiveScene().Equals(persistantScene)) {
             yield return SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
             Scene nextScene = SceneManager.GetSceneByBuildIndex(index);
             SceneManager.SetActiveScene(nextScene);
-        }
-        else
-        {
+        } else {
             Scene currentScene = SceneManager.GetActiveScene();
 
             SceneManager.SetActiveScene(persistantScene);
@@ -123,10 +146,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SetLoadingText(string text)
-    {
-        if (loadingText != null)
-        {
+    private void SetLoadingText(string text) {
+        if (loadingText != null) {
             loadingText.text = text;
         }
     }

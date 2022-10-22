@@ -26,7 +26,8 @@ public class CharacterSelectorButton : MonoBehaviour
 			}
 			if(GameManager.SelectedCharacter != character) {
 				GameManager.SelectedCharacter = character;
-				MenuButtons.CharacterSelected?.Invoke();
+				MenuButtons.PlayerSelection?.Invoke();
+				GameManager.PlayButtonClick();
 			}
 		}
     }

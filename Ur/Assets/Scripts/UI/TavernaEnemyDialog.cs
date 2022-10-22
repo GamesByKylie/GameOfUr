@@ -19,8 +19,7 @@ public class TavernaEnemyDialog : TavernaMiniGameDialog
         nameText.text = crew.CrewName;
         portrait.sprite = crew.CrewPortrait;
 
-        if (portrait.sprite == null)
-        {
+        if (portrait.sprite == null) {
             portrait.sprite = Resources.Load<Sprite>(DefaultPortrait);
         }
     }

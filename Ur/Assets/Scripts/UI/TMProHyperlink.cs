@@ -22,38 +22,30 @@ public class TMProHyperlink : MonoBehaviour, IPointerClickHandler, IPointerEnter
     }
 
     //Credit to https://www.feelouttheform.net/unity3d-links-textmeshpro/
-    public void OnPointerClick(PointerEventData eventData)
-    {
+    public void OnPointerClick(PointerEventData eventData) {
         Debug.Log("Pointer clicked");
         int linkIndex = TMP_TextUtilities.FindIntersectingLink(text, eventData.position, null);
-        if (linkIndex != -1)
-        {
+        if (linkIndex != -1) {
             TMP_LinkInfo link = text.textInfo.linkInfo[linkIndex];
             Application.OpenURL(link.GetLinkID());
+			GameManager.PlayButtonClick();
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
+    public void OnPointerEnter(PointerEventData eventData) {
         isHovering = true;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
+    public void OnPointerExit(PointerEventData eventData) {
         isHovering = false;
     }
 
     //Credit to https://forum.unity.com/threads/text-mesh-pro-highlight-all-words-in-a-link.810882/
-    private void LateUpdate()
-    {
-        if (isHovering)
-        {
-            if (linkStats.x != -1 && linkStats.y != -1)
-            {
-                for (int i = linkStats.x; i < linkStats.y; i++)
-                {
-                    if (text.textInfo.characterInfo[i].character != ' ')
-                    {
+    private void LateUpdate() {
+        if (isHovering) {
+            if (linkStats.x != -1 && linkStats.y != -1) {
+                for (int i = linkStats.x; i < linkStats.y; i++) {
+                    if (text.textInfo.characterInfo[i].character != ' ') {
                         ChangeColor(i, baseColor);
                     }
                 }
@@ -63,18 +55,13 @@ public class TMProHyperlink : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
             int linkIndex = TMP_TextUtilities.FindIntersectingLink(text, Input.mousePosition, null);
 
-            if (linkIndex != -1)
-            {
+            if (linkIndex != -1) {
                 linkStats.x = text.textInfo.linkInfo[linkIndex].linkTextfirstCharacterIndex;
                 linkStats.y = linkStats.x + text.textInfo.linkInfo[linkIndex].linkTextLength;
 
-                for (int i = linkStats.x; i < linkStats.y; i++)
-                {
-                    if (i < text.textInfo.characterCount)
-                    {
-                        if (text.textInfo.characterInfo[i].character != ' ')
-                        {
-                            Debug.Log($"Changing color at {i}: {text.textInfo.characterInfo[i].character}");
+                for (int i = linkStats.x; i < linkStats.y; i++) {
+                    if (i < text.textInfo.characterCount) {
+                        if (text.textInfo.characterInfo[i].character != ' ') {
                             ChangeColor(i, linkHoverColor);
                         }
                     }
@@ -84,8 +71,7 @@ public class TMProHyperlink : MonoBehaviour, IPointerClickHandler, IPointerEnter
         }
     }
 
-    private void ChangeColor(int index, Color32 col)
-    {
+    private void ChangeColor(int index, Color32 col) {
         int meshIndex = text.textInfo.characterInfo[index].materialReferenceIndex;
         int vertexIndex = text.textInfo.characterInfo[index].vertexIndex;
 

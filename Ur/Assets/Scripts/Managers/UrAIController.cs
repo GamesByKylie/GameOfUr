@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UrAIController : MonoBehaviour
 {
-	public enum AIDifficulty { Easy, Medium, Hard }
+	public enum AIDifficulty { Easy, Medium, Hard, None }
 
 	public List<UrPiece> enemyPieces;
 
@@ -32,8 +32,10 @@ public class UrAIController : MonoBehaviour
 				return easyAI;
 			} else if (GameManager.SelectedDifficulty == AIDifficulty.Medium) {
 				return mediumAI;
-			} else {
+			} else if (GameManager.SelectedDifficulty == AIDifficulty.Hard) {
 				return hardAI;
+			} else {
+				throw new System.NotImplementedException();
 			}
 		}
 	}

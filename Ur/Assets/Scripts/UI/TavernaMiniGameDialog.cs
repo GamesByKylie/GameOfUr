@@ -7,17 +7,18 @@ public class TavernaMiniGameDialog : MonoBehaviour
 {
     public Text nameText;
     public Image portrait;
+	public Animator anim;
 
     public float displayTime = 5f;
 	public GameObject textBackground;
 	public Text dialog;
+	public Scrollbar dialogScroll;
     
     protected Coroutine displayRoutine;
 
     protected virtual void Start() 
 	{
         SetDisplayInformation();
-        textBackground.SetActive(false);
 	}
 
     protected virtual void SetDisplayInformation()
@@ -34,8 +35,7 @@ public class TavernaMiniGameDialog : MonoBehaviour
             StopCoroutine(displayRoutine);
         }
 
-		textBackground.SetActive(true);
-		dialog.text = GameManager.UrInsults.RandomElement();
+		ShowText(GameManager.UrInsults.RandomElement());
         displayRoutine = StartCoroutine(AutoCloseDialog());
 	}
 
@@ -44,8 +44,7 @@ public class TavernaMiniGameDialog : MonoBehaviour
             StopCoroutine(displayRoutine);
         }
 
-		textBackground.SetActive(true);
-		dialog.text = barkList.RandomElement();
+		ShowText(barkList.RandomElement());
         displayRoutine = StartCoroutine(AutoCloseDialog());
 	}
 
@@ -53,7 +52,7 @@ public class TavernaMiniGameDialog : MonoBehaviour
 		if(displayRoutine != null) {
 	        StopCoroutine(displayRoutine);
 		}
-		textBackground.SetActive(false);
+		anim.SetBool("SpeechBubbleActive", false);
 	}
 
 	public virtual void ShowCharacterInfo() {
@@ -61,13 +60,17 @@ public class TavernaMiniGameDialog : MonoBehaviour
 			StopCoroutine(displayRoutine);
 		}
 
-		textBackground.SetActive(true);
-		dialog.text = GameManager.SelectedCharacter.characterInfo;
+		ShowText(GameManager.SelectedCharacter.characterInfo);
 	}
 
-    private IEnumerator AutoCloseDialog()
-    {
+    private IEnumerator AutoCloseDialog() {
         yield return new WaitForSeconds(displayTime);
         CloseDialog();
     }
+
+	public virtual void ShowText(string text) {
+		anim.SetBool("SpeechBubbleActive", true);
+		dialog.text = text;
+		dialogScroll.value = 1;
+	}
 }
