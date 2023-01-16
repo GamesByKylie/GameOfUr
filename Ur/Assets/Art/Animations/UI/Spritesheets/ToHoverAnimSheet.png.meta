@@ -68,6 +68,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -76,12 +78,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -99,9 +101,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -468,6 +473,22 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ToHoverAnimSheet_9: -8342406775030883742
+      ToHoverAnimSheet_8: -6568184420043279927
+      ToHoverAnimSheet_0: -4272560455045974592
+      ToHoverAnimSheet_3: 3784829361047851069
+      ToHoverAnimSheet_13: -3918323153051986339
+      ToHoverAnimSheet_12: 7466546768777668511
+      ToHoverAnimSheet_1: 5907539199997784303
+      ToHoverAnimSheet_6: 3560723954826839661
+      ToHoverAnimSheet_5: 1976309822873023146
+      ToHoverAnimSheet_10: 6592275494017810320
+      ToHoverAnimSheet_14: 3588373960518333067
+      ToHoverAnimSheet_11: -8786731726614772111
+      ToHoverAnimSheet_7: 782789286470648988
+      ToHoverAnimSheet_4: -4516030262757569755
+      ToHoverAnimSheet_2: 5630662448542853259
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

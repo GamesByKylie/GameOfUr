@@ -39,17 +39,18 @@ public class SettingsManager : MonoBehaviour
 
     private void Awake()
     {
-        List<Resolution> potentialRes = Screen.resolutions.Select(r => new Resolution { width = r.width, height = r.height }).Distinct().ToList();
-        foreach (var r in potentialRes) {
-            foreach (var s in supportedResolutions) {
-                if (s.width == r.width && s.height == r.height) {
-                    //availableRes.Add(r);
-                }
-            }
-        }
-        if (availableRes.Count == 0) {
-            availableRes = supportedResolutions.ToList();
-        }
+        //List<Resolution> potentialRes = Screen.resolutions.Select(r => new Resolution { width = r.width, height = r.height }).Distinct().ToList();
+		//foreach (var r in potentialRes) {
+		//    foreach (var s in supportedResolutions) {
+		//        if (s.width == r.width && s.height == r.height) {
+		//            availableRes.Add(r);
+		//        }
+		//    }
+		//}
+		//if (availableRes.Count == 0) {
+		//    availableRes = supportedResolutions.ToList();
+		//}
+		availableRes = supportedResolutions.ToList();
         availableRes.OrderByDescending(r => r.width);
         bgmSource = GetComponent<AudioSource>();
 

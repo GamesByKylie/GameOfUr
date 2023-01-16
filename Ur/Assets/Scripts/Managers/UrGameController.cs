@@ -23,7 +23,7 @@ public class UrGameController : MonoBehaviour
 	[Header("UI")]
 	public Camera mainCam;
     public GameObject startUI;
-    public GameObject gameOverUI;
+    public TextDisplayBox gameOverUI;
     public Text gameOverText;
     public TextDisplayBox displayBox;
     public GameObject modalBlocker;
@@ -171,7 +171,7 @@ public class UrGameController : MonoBehaviour
         if (waitingForInput) {
             if (Input.anyKeyDown) {
                 if (tutorialIndex < tutorial.Count - 1) {
-                    DisplayNextTutorial();
+                    StartCoroutine(DisplayNextTutorial());
                 } else if (tutorialIndex == tutorial.Count - 1) {
 					TutorialEndObjects(tutorialIndex);
                     FinishTutorial();
@@ -182,6 +182,13 @@ public class UrGameController : MonoBehaviour
 				PauseMinigame();
 			}
 		}
+
+		//if (Input.GetKeyDown(KeyCode.W)) {
+		//	WinGame();
+		//}
+		//if (Input.GetKeyDown(KeyCode.L)) {
+		//	LoseGame();
+		//}
     }
 
     public void StartTutorial()
@@ -195,14 +202,16 @@ public class UrGameController : MonoBehaviour
         turnText.text = "Press any key to continue";
     }
 
-    public void DisplayNextTutorial()
+    public IEnumerator DisplayNextTutorial()
     {
         TutorialEndObjects(tutorialIndex);
         tutorialIndex++;
 
         if (tutorialIndex < tutorial.Count)
         {
+			yield return StartCoroutine(displayBox.DoCloseMenu());
             TutorialStartObjects(tutorialIndex);
+			displayBox.gameObject.SetActive(true);
             displayBox.DisplayMessage(tutorial[tutorialIndex].text, tutorial[tutorialIndex].anchorMin, tutorial[tutorialIndex].anchorMax);
         }
     }
@@ -236,7 +245,7 @@ public class UrGameController : MonoBehaviour
     public void FinishTutorial()
     {
         waitingForInput = false;
-        displayBox.gameObject.SetActive(false);
+		StartCoroutine(displayBox.DoCloseMenu());
         turnText.text = "Turn " + turnCount;
     }
 
@@ -273,7 +282,6 @@ public class UrGameController : MonoBehaviour
 	/// </summary>
 	/// <returns></returns>
 	public int GetDiceRoll() {
-		rollDiceButton.interactable = false;
 		currentRoll = dice.RollDice(isPlayerTurn);
 
 		return currentRoll;
@@ -285,9 +293,9 @@ public class UrGameController : MonoBehaviour
 	public void RollDice() {
 		//Prevents button from being pressed if there's a bark onscreen
 		if (Time.timeScale != 0) {
-			rollDiceButton.interactable = false;
 			currentRoll = dice.RollDice(isPlayerTurn);
 			if (isPlayerTurn) {
+				rollDiceButton.gameObject.SetActive(false);
 				allowPlayerMove = true;
 			}
 		}
@@ -297,7 +305,7 @@ public class UrGameController : MonoBehaviour
 		isPlayerTurn = playerTurn;
 		allowPlayerMove = false;
 		if (!isGameOver) {
-			rollDiceButton.interactable = isPlayerTurn;
+			rollDiceButton.gameObject.SetActive(isPlayerTurn);
             if (updateTurn) {
                 turnCount++;
                 turnText.text = "Turn " + turnCount;
@@ -311,14 +319,9 @@ public class UrGameController : MonoBehaviour
 		UnhighlightBoard();
 		UnhighlightPieces();
 
-		//The thought with changing the scale slightly is for overlaps when it comes to capturing
-		//Sometimes, the player would always show through, but sometimes they'd show half-and-half
-		//I want whichever piece that's doing the capturing to show on top, so I figured
-		//let's make the pieces being captured (ie whoever's turn it's not) a tiny bit smaller so they don't overlap
-		//It sounds dumb, but it does actually work, and you can't see the scale change unless you're really looking for it
-		//The other option was fiddling with camera layers or something and this game does enough of that already!
+		playerDialog.EnableHighlight(isPlayerTurn);
+		enemyDialog.EnableHighlight(!isPlayerTurn);
 
-        //TODO: change this to using the layers or whatever, I've started being able to see the tiny size changes and it's really annoying me
 		if (!isPlayerTurn) {
 			foreach (var p in enemyAI.enemyPieces) {
 				p.transform.localScale = Vector3.one;
@@ -488,7 +491,7 @@ public class UrGameController : MonoBehaviour
 		rollDiceButton.interactable = false;
 		allowPlayerMove = false;
 
-        gameOverUI.SetActive(true);
+		gameOverUI.EnableAnimation(true);
         modalBlocker.SetActive(true);
         gameOverText.text = $"<size=60><b>Congratulations!</b></size>\n\nTotal Turns: {turnCount}\n\n";
 
@@ -533,7 +536,7 @@ public class UrGameController : MonoBehaviour
 		rollDiceButton.interactable = false;
 		allowPlayerMove = false;
 
-        gameOverUI.SetActive(true);
+		gameOverUI.EnableAnimation(true);
         modalBlocker.SetActive(true);
         gameOverText.text = $"<size=60><b>Too Bad!</b></size>\n\nTotal Turns: {turnCount}\n\n";
 		SaveManager.IncrementValue(SaveKeys.LossesHard);

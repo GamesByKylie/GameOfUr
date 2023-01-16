@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6428482733994971757}
   - component: {fileID: 3979731685299097197}
   - component: {fileID: 3941417734864717261}
+  - component: {fileID: 7325552679340510920}
   m_Layer: 5
   m_Name: ConfirmationBox
   m_TagString: Untagged
@@ -75,6 +76,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7325552679340510920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599663070537285747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f175bbfe0bb6240ad259ff53476604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activateOnEnable: 1
+  anim: {fileID: 5842448010841430901}
+  toOffAnimTime: 0.25
+  scroll: {fileID: 0}
+  textPadding: {x: 110, y: 110}
+  messageText: {fileID: 175364221713585782}
+  rect: {fileID: 3229643737571566806}
 --- !u!1001 &2201528830110991806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,11 +121,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7325552679340510920}
     - target: {fileID: 6182535077341636768, guid: c9490a5e7dbfc9948af1da87d7287453,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResetPlayerPrefs
+      value: CloseMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6182535077341636768, guid: c9490a5e7dbfc9948af1da87d7287453,
         type: 3}
@@ -126,7 +146,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 725555612869219693}
+      objectReference: {fileID: 0}
     - target: {fileID: 6182535077341636768, guid: c9490a5e7dbfc9948af1da87d7287453,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -330,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 6315108877687409257, guid: b9932c09e10980d4e8bf14d01b5b9216,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6315108877687409257, guid: b9932c09e10980d4e8bf14d01b5b9216,
         type: 3}
@@ -341,11 +361,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 725555612869219693}
+      objectReference: {fileID: 7325552679340510920}
     - target: {fileID: 6315108877687409257, guid: b9932c09e10980d4e8bf14d01b5b9216,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EnableAnimation
+      value: CloseMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6315108877687409257, guid: b9932c09e10980d4e8bf14d01b5b9216,
         type: 3}
@@ -616,7 +636,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7896592301428509442, guid: fc13a93f008019c49ac72094878e4530, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fc13a93f008019c49ac72094878e4530, type: 3}
 --- !u!224 &3229643737571566806 stripped
 RectTransform:
@@ -624,15 +645,21 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7460182135721647727}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &725555612869219693 stripped
+--- !u!95 &5842448010841430901 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3932609643607704858, guid: fc13a93f008019c49ac72094878e4530,
+    type: 3}
+  m_PrefabInstance: {fileID: 7460182135721647727}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &175364221713585782 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7896592301428509442, guid: fc13a93f008019c49ac72094878e4530,
+  m_CorrespondingSourceObject: {fileID: 7343366535079675929, guid: fc13a93f008019c49ac72094878e4530,
     type: 3}
   m_PrefabInstance: {fileID: 7460182135721647727}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37f175bbfe0bb6240ad259ff53476604, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

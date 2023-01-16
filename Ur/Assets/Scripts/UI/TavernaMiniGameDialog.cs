@@ -8,6 +8,7 @@ public class TavernaMiniGameDialog : MonoBehaviour
     public Text nameText;
     public Image portrait;
 	public Animator anim;
+	public GameObject highlight;
 
     public float displayTime = 5f;
 	public GameObject textBackground;
@@ -72,5 +73,9 @@ public class TavernaMiniGameDialog : MonoBehaviour
 		anim.SetBool("SpeechBubbleActive", true);
 		dialog.text = text;
 		dialogScroll.value = 1;
+	}
+
+	public void EnableHighlight(bool enable) {
+		highlight.SetActive(enable);
 	}
 }

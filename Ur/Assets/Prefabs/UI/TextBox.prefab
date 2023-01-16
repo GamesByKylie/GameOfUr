@@ -169,7 +169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f175bbfe0bb6240ad259ff53476604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateOnEnable: 0
   anim: {fileID: 3932609643607704858}
+  toOffAnimTime: 0.25
+  scroll: {fileID: 0}
   textPadding: {x: 110, y: 110}
   messageText: {fileID: 7343366535079675929}
   rect: {fileID: 5428557180160965305}
@@ -185,7 +188,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5c66da408ac3ebe4e87d33235d71ca52, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 

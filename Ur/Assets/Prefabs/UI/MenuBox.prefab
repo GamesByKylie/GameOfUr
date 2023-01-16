@@ -375,10 +375,10 @@ RectTransform:
   m_Father: {fileID: 2826745663611514714}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 464, y: -291}
+  m_SizeDelta: {x: 928, y: 582}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2826745663182005029
 CanvasRenderer:
@@ -850,7 +850,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5c66da408ac3ebe4e87d33235d71ca52, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -869,7 +869,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8532ac0551c6933489e96321cf97b127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateOnEnable: 0
   anim: {fileID: 4338101509317659925}
+  toOffAnimTime: 0.25
   scroll: {fileID: 2826745662789796339}
 --- !u!1 &8833956207949632433
 GameObject:

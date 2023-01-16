@@ -176,6 +176,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -184,12 +186,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -207,9 +209,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -1332,6 +1337,58 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      HoverAnimSheet_30: 5324250410397976283
+      HoverAnimSheet_8: -8171515699306803488
+      HoverAnimSheet_28: 8284654387137551269
+      HoverAnimSheet_33: 353899890309803927
+      HoverAnimSheet_43: -7754029454062320271
+      HoverAnimSheet_32: 8498209998989989539
+      HoverAnimSheet_19: -3324565344478985899
+      HoverAnimSheet_25: 9110077282606800021
+      HoverAnimSheet_46: 1251652842664827133
+      HoverAnimSheet_24: -2541995494565451234
+      HoverAnimSheet_13: 3495948149459365231
+      HoverAnimSheet_42: -6957114053070950238
+      HoverAnimSheet_2: 5445934608444181061
+      HoverAnimSheet_37: -976935865684182928
+      HoverAnimSheet_34: -2501840156979152616
+      HoverAnimSheet_11: 1391167177192812325
+      HoverAnimSheet_17: -4713288758082191182
+      HoverAnimSheet_1: -1314973822775320289
+      HoverAnimSheet_26: 7840659621041068181
+      HoverAnimSheet_35: 6725858214092533100
+      HoverAnimSheet_6: -1573981068233690887
+      HoverAnimSheet_31: -2811587682975002782
+      HoverAnimSheet_50: -7413989969879507731
+      HoverAnimSheet_21: 1229520460957725695
+      HoverAnimSheet_47: 5124456121960919920
+      HoverAnimSheet_22: -1553850377028977593
+      HoverAnimSheet_23: 5804128576086025879
+      HoverAnimSheet_44: -3613092854739794922
+      HoverAnimSheet_0: -7803200824595341792
+      HoverAnimSheet_29: 955835972192660492
+      HoverAnimSheet_7: -2702724990494469814
+      HoverAnimSheet_18: 1513591789961335895
+      HoverAnimSheet_45: -8620724429015650521
+      HoverAnimSheet_48: 223670073343630929
+      HoverAnimSheet_40: 6178685809628259671
+      HoverAnimSheet_3: 2291822188445955343
+      HoverAnimSheet_16: -8875219677145192602
+      HoverAnimSheet_39: 717809995453536721
+      HoverAnimSheet_15: 4304028673982427057
+      HoverAnimSheet_14: -874425885157574812
+      HoverAnimSheet_38: 2158991691805929370
+      HoverAnimSheet_4: -7396563484898313461
+      HoverAnimSheet_41: 4794609639024685052
+      HoverAnimSheet_10: -4628632157867930670
+      HoverAnimSheet_5: 5926235902585914633
+      HoverAnimSheet_9: -6952791521611175065
+      HoverAnimSheet_36: 864707365450456542
+      HoverAnimSheet_27: -8166710452375340849
+      HoverAnimSheet_12: 1827910033901783397
+      HoverAnimSheet_49: 5885915469880502951
+      HoverAnimSheet_20: -8632441849980229142
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

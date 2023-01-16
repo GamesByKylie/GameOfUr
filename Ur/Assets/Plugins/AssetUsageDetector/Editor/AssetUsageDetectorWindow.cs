@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using Object = UnityEngine.Object;
 #if UNITY_2018_3_OR_NEWER
-using PrefabStage = UnityEditor.Experimental.SceneManagement.PrefabStage;
-using PrefabStageUtility = UnityEditor.Experimental.SceneManagement.PrefabStageUtility;
+using PrefabStage = UnityEditor.SceneManagement.PrefabStage;
+using PrefabStageUtility = UnityEditor.SceneManagement.PrefabStageUtility;
 #endif
 
 namespace AssetUsageDetectorNamespace
@@ -351,15 +351,15 @@ namespace AssetUsageDetectorNamespace
 				wantsMouseMove = wantsMouseEnterLeaveWindow = true; // These values aren't preserved during domain reload on Unity 2020.3.0f1
 
 #if UNITY_2018_3_OR_NEWER
-			PrefabStage.prefabStageClosing -= ReplacePrefabStageObjectsWithAssets;
-			PrefabStage.prefabStageClosing += ReplacePrefabStageObjectsWithAssets;
+			UnityEditor.SceneManagement.PrefabStage.prefabStageClosing -= ReplacePrefabStageObjectsWithAssets;
+			UnityEditor.SceneManagement.PrefabStage.prefabStageClosing += ReplacePrefabStageObjectsWithAssets;
 #endif
 		}
 
 		private void OnDisable()
 		{
 #if UNITY_2018_3_OR_NEWER
-			PrefabStage.prefabStageClosing -= ReplacePrefabStageObjectsWithAssets;
+			UnityEditor.SceneManagement.PrefabStage.prefabStageClosing -= ReplacePrefabStageObjectsWithAssets;
 #endif
 			SearchResultTooltip.Hide();
 		}
@@ -650,7 +650,7 @@ namespace AssetUsageDetectorNamespace
 			SavePrefs();
 
 #if UNITY_2018_3_OR_NEWER
-			ReplacePrefabStageObjectsWithAssets( PrefabStageUtility.GetCurrentPrefabStage() );
+			ReplacePrefabStageObjectsWithAssets( UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() );
 #endif
 
 			// Start searching
@@ -689,7 +689,7 @@ namespace AssetUsageDetectorNamespace
 
 #if UNITY_2018_3_OR_NEWER
 		// Try replacing searched objects who are part of currently open prefab stage with their corresponding prefab assets
-		public void ReplacePrefabStageObjectsWithAssets( PrefabStage prefabStage )
+		public void ReplacePrefabStageObjectsWithAssets( UnityEditor.SceneManagement.PrefabStage prefabStage )
 		{
 			if( prefabStage == null || !prefabStage.stageHandle.IsValid() )
 				return;

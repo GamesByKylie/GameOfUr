@@ -10,8 +10,6 @@ public class TextDisplayBox : MenuPanelAnimator
     [SerializeField] private Text messageText = null;
     [SerializeField] private RectTransform rect = null;
 
-    //Also going to want an appear/disappear anim so it's not just sudden
-
     private void Awake() {
         rect = GetComponent<RectTransform>();
     }
@@ -20,6 +18,7 @@ public class TextDisplayBox : MenuPanelAnimator
         if (rect == null) {
             rect = GetComponent<RectTransform>();
         }
+		EnableAnimation(true);
         rect.anchorMin = anchorMin;
         rect.anchorMax = anchorMax;
         rect.anchoredPosition = Vector2.zero;
