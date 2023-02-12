@@ -305,6 +305,8 @@ public class UrGameController : MonoBehaviour
 	public void SwitchTurn(bool playerTurn, bool updateTurn) {
 		isPlayerTurn = playerTurn;
 		allowPlayerMove = false;
+		dice.SetNumColor(isPlayerTurn);
+		dice.diceResultText.text = "-";
 		if (!isGameOver) {
 			rollDiceButton.gameObject.SetActive(isPlayerTurn);
             if (updateTurn) {

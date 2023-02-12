@@ -867,6 +867,9 @@ MonoBehaviour:
   availableMoveBaseWeight: 0.25
   availableMoveWeightIncrease: 0.1
   diceResultText: {fileID: 1127306566}
+  diceResultOutline: {fileID: 1127306565}
+  playerResultColor: {r: 0.11231211, g: 0.10684408, b: 0.46226418, a: 0.5019608}
+  enemyResultColor: {r: 0.5471698, g: 0.0790145, b: 0.002580996, a: 0.5019608}
   diceSpinTime: 1
   diceModels:
   - {fileID: 1132440432}
@@ -1303,8 +1306,8 @@ RectTransform:
   m_Father: {fileID: 1329962180}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.77500004, y: 0.02}
-  m_AnchorMax: {x: 0.99, y: 0.22}
+  m_AnchorMin: {x: 0.75, y: 0.02}
+  m_AnchorMax: {x: 0.99, y: 0.25}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0}
@@ -4295,7 +4298,7 @@ RectTransform:
   m_AnchorMin: {x: 0.3, y: 0.7}
   m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: -22.300049}
-  m_SizeDelta: {x: 0, y: -22.300003}
+  m_SizeDelta: {x: 0, y: -22.3}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1127306565
 MonoBehaviour:
@@ -4310,7 +4313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 1, y: -1}
+  m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
 --- !u!114 &1127306566
 MonoBehaviour:
@@ -4334,18 +4337,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 17
+    m_FontSize: 43
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 12
-    m_MaxSize: 46
+    m_MaxSize: 90
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: '-'
 --- !u!222 &1127306567
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12377,7 +12380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.32, y: 0}
   m_AnchorMax: {x: 0.68, y: 0.33}
-  m_AnchoredPosition: {x: 0, y: 22.3}
+  m_AnchoredPosition: {x: 0, y: 27.322}
   m_SizeDelta: {x: 0, y: -22.3}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1492511150

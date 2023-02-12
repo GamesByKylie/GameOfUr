@@ -13,6 +13,9 @@ public class UrDiceRoller : MonoBehaviour
 	[Range(0f, 1f)] public float availableMoveBaseWeight = .25f;
 	[Range(0f, 1f)] public float availableMoveWeightIncrease = 0.1f;
 	public Text diceResultText;
+	public Outline diceResultOutline;
+	public Color playerResultColor;
+	public Color enemyResultColor;
 	public float diceSpinTime;
 	public Animator[] diceModels;
 	public AudioClip[] diceSounds;
@@ -23,10 +26,13 @@ public class UrDiceRoller : MonoBehaviour
 	private float playerWeight;
 	private float enemyWeight;
 
+	private Coroutine numberScrambleRoutine;
+
 	private void Start() {
 		urGC = GetComponent<UrGameController>();
 		playerWeight = availableMoveBaseWeight;
 		enemyWeight = availableMoveBaseWeight;
+		diceResultOutline.effectColor = playerResultColor;
 	}
 
 	private IEnumerator RollAndRotate(Animator anim, string trigger)
@@ -149,8 +155,10 @@ public class UrDiceRoller : MonoBehaviour
 			StartCoroutine(RollAndRotate(diceModels[i], trigger));
 		}
 
+		SetNumColor(playerTurn);
+		numberScrambleRoutine = StartCoroutine(ScrambleNumbers());
     	yield return new WaitForSeconds(SettingsManager.AnimationsEnabled ? diceSpinTime : noAnimSpinTime);
-        
+		StopCoroutine(numberScrambleRoutine);
 		diceResultText.text = resultRoll.ToString();
 
 		if (playerTurn) 
@@ -202,15 +210,38 @@ public class UrDiceRoller : MonoBehaviour
                 trigger += suffix.ToString();
                 StartCoroutine(RollAndRotate(diceModels[i], trigger));
             }
-
+			SetNumColor(true);
+			numberScrambleRoutine = StartCoroutine(ScrambleNumbers());
             yield return new WaitForSeconds(diceSpinTime);
+			StopCoroutine(numberScrambleRoutine);
 
             diceResultText.text = roll.ToString();
 
             yield return new WaitForSeconds(1.5f);
         }
-
     }
+
+	private IEnumerator ScrambleNumbers() {
+		int num = 0;
+		while (true) {
+			diceResultText.text = num.ToString();
+			num++;
+			if(num > 5) {
+				num = 0;
+			} else if(num > 2) {
+				num = 5;
+			}
+			yield return new WaitForSeconds(0.05f);
+		}
+	}
+
+	public void SetNumColor(bool playerTurn) {
+		if (playerTurn) {
+			diceResultOutline.effectColor = playerResultColor;
+		} else {
+			diceResultOutline.effectColor = enemyResultColor;
+		}
+	}
 }
 
 
