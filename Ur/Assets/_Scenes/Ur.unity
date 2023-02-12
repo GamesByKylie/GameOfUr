@@ -654,7 +654,7 @@ MonoBehaviour:
   enemyPathLine: {fileID: 1660020837}
   enemyDialog: {fileID: 5655370617182690316}
   mainCam: {fileID: 959669368}
-  startUI: {fileID: 1064017114}
+  startUI: {fileID: 1064017115}
   gameOverUI: {fileID: 970875304}
   gameOverText: {fileID: 970875303}
   displayBox: {fileID: 7520976924163682323}
@@ -4161,6 +4161,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1064017112}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1064017115 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7896592301428509442, guid: fc13a93f008019c49ac72094878e4530,
+    type: 3}
+  m_PrefabInstance: {fileID: 1064017112}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064017114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f175bbfe0bb6240ad259ff53476604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1066665116
 GameObject:
   m_ObjectHideFlags: 0

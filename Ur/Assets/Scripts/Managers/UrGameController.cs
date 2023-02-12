@@ -22,7 +22,7 @@ public class UrGameController : MonoBehaviour
 
 	[Header("UI")]
 	public Camera mainCam;
-    public GameObject startUI;
+    public TextDisplayBox startUI;
     public TextDisplayBox gameOverUI;
     public Text gameOverText;
     public TextDisplayBox displayBox;
@@ -93,7 +93,8 @@ public class UrGameController : MonoBehaviour
         {
             Debug.Log("Player's first time - tutorial offer");
             modalBlocker.SetActive(true);
-            startUI.SetActive(true);
+            startUI.gameObject.SetActive(true);
+			startUI.EnableAnimation(true);
             PlayerPrefs.SetString("played_before", "true");
         }
 
