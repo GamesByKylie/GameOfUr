@@ -76,6 +76,9 @@ public class MenuButtons : MonoBehaviour
     }
 
     public void UpdateScreenResolution(Dropdown d) {
+		if(resolutionConfirmRoutine != null) {
+			StopCoroutine(resolutionConfirmRoutine);
+		}
         previousResolution = SettingsManager.ScreenResolution;
         SettingsManager.ScreenResolution = d.value;
         resolutionConfirmRoutine = StartCoroutine(DoConfirmResolution());

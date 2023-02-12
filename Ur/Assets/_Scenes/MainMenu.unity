@@ -3436,7 +3436,6 @@ MonoBehaviour:
   - {fileID: 7904562339936254219}
   - {fileID: 384241450}
   - {fileID: 1668309516}
-  - {fileID: 1290271465766602656}
   - {fileID: 860343134}
   - {fileID: 1840229501}
   extraScreens:
@@ -6844,18 +6843,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 989663611289553074}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1290271465766602656 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2660498064909832484, guid: 378270ba308fdf14384f5d6b6122cd8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8028599327713853309}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc4dde4c2c49eb4fb9b7e1e705b8252, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1951993223060981919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7166,7 +7153,7 @@ PrefabInstance:
     - target: {fileID: 462301214900799796, guid: 9074e97744e911d499387b65b3449080,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 462301214900799796, guid: 9074e97744e911d499387b65b3449080,
         type: 3}

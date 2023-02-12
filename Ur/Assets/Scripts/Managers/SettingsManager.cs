@@ -154,7 +154,7 @@ public class SettingsManager : MonoBehaviour
     public static IEnumerable<Resolution> AvailableResolutions { get { return availableRes; } }
 
     public static bool AnimationsEnabled {
-        get { return animationsEnabled; }
+        get { return true; } //removing feature but leaving the skeleton in just in case
         set {
             animationsEnabled = value;
             PlayerPrefs.SetString(SaveKeys.AnimationsEnabled, value.ToString());
