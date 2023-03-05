@@ -21,12 +21,9 @@ public class UrDiceRoller : MonoBehaviour
 	public AudioClip[] diceSounds;
 	public AudioSource diceSource;
 
-
 	private UrGameController urGC;
 	private float playerWeight;
 	private float enemyWeight;
-
-	private Coroutine numberScrambleRoutine;
 
 	private void Start() {
 		urGC = GetComponent<UrGameController>();
@@ -128,25 +125,20 @@ public class UrDiceRoller : MonoBehaviour
 		return roll;
 	}
 
-	private IEnumerator VisualDiceRoll(int[] diceRolls, int resultRoll, bool playerTurn) 
-	{
+	private IEnumerator VisualDiceRoll(int[] diceRolls, int resultRoll, bool playerTurn) {
 		//Visually rotate the dice so they look like they're rolling
 		//I TRIED to do it procedurally by adding to the transform.rotation, but it wouldn't work
 		//First I tried Euler angles and kept having issues with them not being unique and with gimble lock
 		//Then I tried Transform.Rotate, but sometimes it would cause massive framerate dips
 		//So I had to give up and do animations instead
 
-		for (int i = 0; i < diceModels.Length; i++) 
-		{
+		for (int i = 0; i < diceModels.Length; i++) {
 			int suffix = Random.Range(1, 3);
 			//1 is blank, 2 is mark
 			string trigger;
-            if (SettingsManager.AnimationsEnabled)
-            {
+            if (SettingsManager.AnimationsEnabled) {
                 trigger = diceRolls[i] == 1 ? "RollBlank" : "RollMark";
-            }
-            else
-            {
+            } else {
                 trigger = diceRolls[i] == 1 ? "JumpBlank" : "JumpMark";
             }
 
@@ -155,45 +147,34 @@ public class UrDiceRoller : MonoBehaviour
 			StartCoroutine(RollAndRotate(diceModels[i], trigger));
 		}
 
+		diceResultText.text = "";
 		SetNumColor(playerTurn);
-		numberScrambleRoutine = StartCoroutine(ScrambleNumbers());
     	yield return new WaitForSeconds(SettingsManager.AnimationsEnabled ? diceSpinTime : noAnimSpinTime);
-		StopCoroutine(numberScrambleRoutine);
 		diceResultText.text = resultRoll.ToString();
 
-		if (playerTurn) 
-		{
-			if (!urGC.CanPlayerMove(true)) 
-			{
+		if (playerTurn) {
+			if (!urGC.CanPlayerMove(true)) {
 				urGC.ShowAlertText("No Available Moves");
 				urGC.PlaySoundFX(UrGameController.SoundTrigger.LostTurn, true);
                 StartCoroutine(urGC.WaitToSwitchTurn(false, true, SettingsManager.AnimationsEnabled ? skipTurnWaitTime : noAnimWaitTime));
 			}
-		}
-		else 
-		{
-			if (!urGC.CanPlayerMove(false, false)) 
-			{
+		} else {
+			if (!urGC.CanPlayerMove(false, false)) {
 				urGC.ShowAlertText("Opponent Has No Moves");
 				urGC.PlaySoundFX(UrGameController.SoundTrigger.LostTurn, false);
                 StartCoroutine(urGC.WaitToSwitchTurn(true, true, SettingsManager.AnimationsEnabled ? skipTurnWaitTime : noAnimWaitTime));
-			}
-			else 
-			{
+			} else {
 				StartCoroutine(urGC.enemyAI.DoEnemyTurn());
 			}
 		}
 	}
 
-    public IEnumerator RollVisualsOnly()
-    {
-        while (true)
-        {
+    public IEnumerator RollVisualsOnly() {
+        while (true) {
             //Determine numbers
             int[] diceRolls = new int[diceModels.Length];
 
-            for (int i = 0; i < diceRolls.Length; i++)
-            {
+            for (int i = 0; i < diceRolls.Length; i++) {
                 diceRolls[i] = Random.Range(1, 3);
             }
 
@@ -202,38 +183,23 @@ public class UrDiceRoller : MonoBehaviour
             int roll = marks == 3 ? 5 : marks;
 
             //Then do the visuals
-            for (int i = 0; i < diceModels.Length; i++)
-            {
+            for (int i = 0; i < diceModels.Length; i++) {
                 int suffix = Random.Range(1, 3);
                 //1 is blank, 2 is mark
                 string trigger = diceRolls[i] == 1 ? "RollBlank" : "RollMark";
                 trigger += suffix.ToString();
                 StartCoroutine(RollAndRotate(diceModels[i], trigger));
             }
+
+			diceResultText.text = "";
 			SetNumColor(true);
-			numberScrambleRoutine = StartCoroutine(ScrambleNumbers());
             yield return new WaitForSeconds(diceSpinTime);
-			StopCoroutine(numberScrambleRoutine);
 
             diceResultText.text = roll.ToString();
 
             yield return new WaitForSeconds(1.5f);
         }
     }
-
-	private IEnumerator ScrambleNumbers() {
-		int num = 0;
-		while (true) {
-			diceResultText.text = num.ToString();
-			num++;
-			if(num > 5) {
-				num = 0;
-			} else if(num > 2) {
-				num = 5;
-			}
-			yield return new WaitForSeconds(0.05f);
-		}
-	}
 
 	public void SetNumColor(bool playerTurn) {
 		if (playerTurn) {

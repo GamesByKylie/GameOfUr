@@ -170,39 +170,26 @@ public class UrAIController : MonoBehaviour
 		List<UrPiece> potentialPieces = new List<UrPiece>();
 		bool optimalMove = Random.Range(0f, 1f) <= OptimalMoveChance;
 		
-		//1. Move piece off the end of the board
+		//1. Move piece off the end of the board - regardless of difficulty
 		for (int i = 0; i < movablePieceList.Count; i++) {
 			if (movablePieceList[i].BoardIndex + currentRoll == urGC.enemyBoardPositions.Count - 1) {
 				potentialPieces.Add(movablePieceList[i]);
 			}
 		}
 		if (potentialPieces.Count != 0) {
-			if (optimalMove || potentialPieces.Count == enemyPieces.Count) {
-				Debug.Log("At least one piece can move off the board, taking that move");
-				return potentialPieces.RandomElement();
-			} else {
-				Debug.Log("Enemy making a sub-optimal move other than moving off the board");
-				movablePieceList.RemoveAll(x => potentialPieces.Contains(x));
-				return movablePieceList.RandomElement();
-			}
+			Debug.Log("At least one piece can move off the board, taking that move");
+			return potentialPieces.RandomElement();
 		}
 
-		//2. Capture one of the player's pieces
+		//2. Capture one of the player's pieces - regardless of difficulty
 		for (int i = 0; i < movablePieceList.Count; i++) {
 			if (urGC.enemyBoardPositions[movablePieceList[i].BoardIndex + currentRoll].OppositeOccupyingPiece(false)) {
 				potentialPieces.Add(movablePieceList[i]);
 			}
 		}
 		if (potentialPieces.Count != 0) {
-			if (optimalMove || potentialPieces.Count == enemyPieces.Count) {
-				Debug.Log("At least one piece can capture a player piece, taking that move");
-				return potentialPieces.RandomElement();
-			} else {
-				Debug.Log("Enemy making a sub-optimal move other than capturing");
-				movablePieceList.RemoveAll(x => potentialPieces.Contains(x));
-				return movablePieceList.RandomElement();
-			}
-
+			Debug.Log("At least one piece can capture a player piece, taking that move");
+			return potentialPieces.RandomElement();
 		}
 
 		//3. Land on a rosette and roll again
@@ -212,7 +199,7 @@ public class UrAIController : MonoBehaviour
 			}
 		}
 		if (potentialPieces.Count != 0) {
-			if (optimalMove || potentialPieces.Count == enemyPieces.Count) {
+			if (optimalMove || potentialPieces.Count == enemyPieces.Count) { //If there are no options but this move, take it regardless of difficulty
 				Debug.Log("At least one piece can land on a rosette, taking that move");
 				return potentialPieces.RandomElement();
 			} else {

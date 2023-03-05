@@ -980,7 +980,7 @@ PrefabInstance:
     - target: {fileID: 6135890220874187359, guid: e485ede3d1179ba4cbf41ed536c94b2e,
         type: 3}
       propertyPath: m_Text
-      value: BGM Volume
+      value: Music
       objectReference: {fileID: 0}
     - target: {fileID: 6135890220874187359, guid: e485ede3d1179ba4cbf41ed536c94b2e,
         type: 3}
@@ -1562,7 +1562,7 @@ PrefabInstance:
     - target: {fileID: 6135890220874187359, guid: e485ede3d1179ba4cbf41ed536c94b2e,
         type: 3}
       propertyPath: m_Text
-      value: SFX Volume
+      value: Effects
       objectReference: {fileID: 0}
     - target: {fileID: 6177809198436303597, guid: e485ede3d1179ba4cbf41ed536c94b2e,
         type: 3}

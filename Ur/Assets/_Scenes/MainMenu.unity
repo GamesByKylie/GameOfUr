@@ -245,9 +245,9 @@ PrefabInstance:
     - target: {fileID: 2826745663182004442, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_text
-      value: "<b><size=50>Project Team</size></b>\r\n\r\n<b>Dr. Sandra Blakely</b>\r\n<indent=5%><i>Project
-        Director, Emory University, Department of Classics</i></indent>\r\n<b>Dr.
-        Joanna C. Mundy</b>\r\n<indent=5%>Project Manager, Digital Projects Specialist,
+      value: "<b><size=50>Project Team</size></b>\r\n\r\n<b>Dr. Sandra Blakely</b>\r\n<indent=5%>Project
+        Director, Emory University, Department of Classics</indent>\r\n<b>Dr. Joanna
+        C. Mundy</b>\r\n<indent=5%>Project Manager, Digital Projects Specialist,
         Emory Center for Digital Scholarship</indent>\r\n<b>Kylie Gilde</b>\r\n<indent=5%>Lead
         Programmer, Freelance Programmer</indent>\r\n<b>Kevin Dressel</b>\r\n<indent=5%>Technical
         Architect, Shiny Dolphin Games LLC</indent>\r\n<b>Evie Wang Edmundson</b>\r\n<indent=5%>Freelance
@@ -4304,75 +4304,39 @@ PrefabInstance:
     - target: {fileID: 2826745663182004442, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_text
-      value: '<b><size=50>The Game</size></b>
-
-
-        <color=black>The Royal Game
-        of Ur - also known as Twenty Squares - has a history that stretches over
-        five millennia! Its earliest boards date back to 2500 BC, and over 100 examples
-        have been found in archaeological sites in Iraq, Iran, Israel, Syria, Jordan,
-        Lebanon, Turkey, Cyprus, Egypt, and Crete. Sir Leonard Woolley excavated
-        the first example at the Royal Cemetery of Ur in the 1920s; it was inlaid
-        with shell plaques, some sculpted with rosettes, others with an eye. The
-        game changed slightly in the early 2nd millennium, when the smaller block
-        of six squares was joined to the block of twelve by a bridge, affording a
-        continuous run of 8 squares on the length of the board. The rules and the
-        meaning for the game, however, come from a much later source - a clay cuneiform
-        tablet dated to the time of the Seleucid dynasty, 177-176 BC. This tablet,
-        just 10 cm x 9.4 cm x 2.8 cm in size, was written by Itti-Marduk-balatu,
-        member of a prominent Babylonian scribal family which had written on astronomy
-        and other learned matters for six generations.  His tablet is a copy of one
-        made by another scholarly family, known as Iddin-Bel. You can see Itti-Marduk-balatu''s
+      value: "<b><size=50>The Game</size></b>\n\n<color=black>The Royal Game of Ur
+        - also known as Twenty Squares - has a history that stretches over five millennia!
+        Its earliest boards date back to 2500 BC, and over 100 examples have been
+        found in archaeological sites in Iraq, Iran, Israel, Syria, Jordan, Lebanon,
+        Turkey, Cyprus, Egypt, and Crete. Sir Leonard Woolley excavated the first
+        example at the Royal Cemetery of Ur in the 1920s; it was inlaid with shell
+        plaques, some sculpted with rosettes, others with an eye. \nThe game changed
+        slightly in the early 2nd millennium, when the smaller block of six squares
+        was joined to the block of twelve by a bridge, affording a continuous run
+        of 8 squares on the length of the board. The rules and the meaning for the
+        game, however, come from a much later source - a clay cuneiform tablet dated
+        to the time of the Seleucid dynasty, 177-176 BC. This tablet, just 10 cm
+        x 9.4 cm x 2.8 cm in size, was written by Itti-Marduk-balatu, member of a
+        prominent Babylonian scribal family which had written on astronomy and other
+        learned matters for six generations.  His tablet is a copy of one made by
+        another scholarly family, known as Iddin-Bel. You can see Itti-Marduk-balatu's
         tablet at the British Museum, BM33333B.  It is inscribed on the back with
         omens from the flights of birds, including the swallow (summatu) and the
         raven (ugagu). A second tablet, several centuries earlier, has some of the
-        same material, and may have come from Uruk.
-
-
-        <b><size=50>The Players</size></b>
-
-
-        <b>Jason</b>
-
-        <i>Greek
-        mythical hero from the Argonautica</i>
-
-        <indent=5%>-<link="https://readux.io/collection/argonautica/"><#3D5F3C>"Representing
-        the Argonautica."</color></link>
-
-        -<link="https://www.theoi.com/articles/what-is-the-story-of-jason-and-the-golden-fleece/"><#3D5F3C>"What
-        is the Story of Jason and the Golden Fleece?"</color></link></indent>
-
-
-        <b>Enmerkar</b>
-
-        <i>Ancient
-        Sumerian hero and historical King of Uruk, circa 3000 BCE</i>
-
-        <indent=5%>-<link="https://etcsl.orinst.ox.ac.uk/section1/tr1823.htm"><#3D5F3C>"Enmerkar
-        and the lord of Aratta: translation"</color></link>
-
-        -Katz, Dina.
-        <link="https://www.academia.edu/30993506/Ups_and_Downs_in_the_Career_of_Enmerkar_king_of_Uruk"><#3D5F3C>"Ups
-        and Downs in the Career of Enmerkar king of Uruk."</color></link> In: O.
+        same material, and may have come from Uruk.\n\n<b><size=50>The Players</size></b>\n\n<b>Jason</b>\n<i>Greek
+        mythical hero from the Argonautica</i>\n<indent=5%>-<link=\"https://readux.io/collection/argonautica/\"><#3D5F3C>\"Representing
+        the Argonautica.\"</color></link>\n-<link=\"https://www.theoi.com/articles/what-is-the-story-of-jason-and-the-golden-fleece/\"><#3D5F3C>\"What
+        is the Story of Jason and the Golden Fleece?\"</color></link></indent>\n\n<b>Enmerkar</b>\n<i>Ancient
+        Sumerian hero and historical King of Uruk, circa 3000 BCE</i>\n<indent=5%>-<link=\"https://etcsl.orinst.ox.ac.uk/section1/tr1823.htm\"><#3D5F3C>\"Enmerkar
+        and the lord of Aratta: translation\"</color></link>\n-Katz, Dina. <link=\"https://www.academia.edu/30993506/Ups_and_Downs_in_the_Career_of_Enmerkar_king_of_Uruk\"><#3D5F3C>\"Ups
+        and Downs in the Career of Enmerkar king of Uruk.\"</color></link> In: O.
         Drewnowska and M. Sandowicz (eds.) Fortune and Misfortune in the Ancient
-        Near East. Proceedings of the 60th RAI at Warsaw, 21-25 2014. Pp. 201-210.</indent>
-
-
-        <b>Wenamun</b>
-
-        <i>Egyptian
+        Near East. Proceedings of the 60th RAI at Warsaw, 21-25 2014. Pp. 201-210.</indent>\n\n<b>Wenamun</b>\n<i>Egyptian
         priest of Amun at Karnack, under Pharaoh Ramesses XI, from the (most likely
-        fictional) Story of Wenamun</i>
-
-        <indent=5%>-<link="https://www.livius.org/articles/person/wen-amun/"><#3D5F3C>"Wen-Amun"</color></link>
-
-        -Winand,
-        Jean. 2011. <link="https://www.academia.edu/14114304/The_Report_of_Wenanum_A_Journey_in_Ancie
-
-        nt_Egyptian_Literature"><#3D5F3C>"The
-        report of Wenamun. A Journey of Ancient Egyptian Literature,"</color></link>
-        in Ramesside Studies in Honour of K. A. Kitchen.</indent>'
+        fictional) Story of Wenamun</i>\n<indent=5%>-<link=\"https://www.livius.org/articles/person/wen-amun/\"><#3D5F3C>\"Wen-Amun\"</color></link>\n-Winand,
+        Jean. 2011. <link=\"https://www.academia.edu/14114304/The_Report_of_Wenanum_A_Journey_in_Ancie\nnt_Egyptian_Literature\"><#3D5F3C>\"The
+        report of Wenamun. A Journey of Ancient Egyptian Literature,\"</color></link>
+        in Ramesside Studies in Honour of K. A. Kitchen.</indent>"
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004442, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}

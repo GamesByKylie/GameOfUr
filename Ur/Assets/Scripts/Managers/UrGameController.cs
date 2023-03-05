@@ -89,8 +89,7 @@ public class UrGameController : MonoBehaviour
         displayBox.gameObject.SetActive(false);
 
         //ask if they want a tutorial
-        if (!PlayerPrefs.HasKey("played_before"))
-        {
+        if (!PlayerPrefs.HasKey("played_before")) {
             Debug.Log("Player's first time - tutorial offer");
             modalBlocker.SetActive(true);
             startUI.gameObject.SetActive(true);
@@ -120,14 +119,12 @@ public class UrGameController : MonoBehaviour
 		}
 	}
 
-	private IEnumerator RefreshPause()
-	{
+	private IEnumerator RefreshPause() {
 		yield return new WaitForSeconds(0.5f);
 		pauseBuffer = false;
 	}
 
-    public void SetGameSpeed(float speed)
-    {
+    public void SetGameSpeed(float speed) {
         Time.timeScale = speed;
     }
 
@@ -138,37 +135,31 @@ public class UrGameController : MonoBehaviour
     //    modalBlocker.SetActive(false);
     //}
 
-    public void PlayMoveSound()
-    {
+    public void PlayMoveSound() {
         moveSound.volume = SettingsManager.MasterVolume * SettingsManager.SFXVolume;
         moveSound.pitch = Random.Range(0.7f, 1.1f);
         moveSound.Play();
     }
 
-    public void RestartScene()
-    {
+    public void RestartScene() {
         GameManager.LoadGamePlay();
     }
 
-    public void ExitGameplay()
-    {
+    public void ExitGameplay() {
         GameManager.LoadMainMenu();
     }
 
-    public void RestartTutorial()
-    {
+    public void RestartTutorial() {
 		StartCoroutine(DoRestartTutorial());
     }
 
-	private IEnumerator DoRestartTutorial()
-	{
+	private IEnumerator DoRestartTutorial() {
 		PauseMinigame();
 		yield return new WaitForSeconds(1f);
 		StartTutorial();
 	}
 
-    private void Update()
-    {
+    private void Update() {
         if (waitingForInput) {
             if (Input.anyKeyDown) {
                 if (tutorialIndex < tutorial.Count - 1) {
@@ -192,9 +183,9 @@ public class UrGameController : MonoBehaviour
 		//}
     }
 
-    public void StartTutorial()
-    {
+    public void StartTutorial() {
         tutorialIndex = 0;
+		rollDiceButton.interactable = false;
         displayBox.gameObject.SetActive(true);
         startUI.gameObject.SetActive(false);
         displayBox.DisplayMessage(tutorial[0].text, tutorial[0].anchorMin, tutorial[0].anchorMax);
@@ -203,13 +194,11 @@ public class UrGameController : MonoBehaviour
         turnText.text = "Press any key to continue";
     }
 
-    public IEnumerator DisplayNextTutorial()
-    {
+    public IEnumerator DisplayNextTutorial() {
         TutorialEndObjects(tutorialIndex);
         tutorialIndex++;
 
-        if (tutorialIndex < tutorial.Count)
-        {
+        if (tutorialIndex < tutorial.Count) {
 			yield return StartCoroutine(displayBox.DoCloseMenu());
             TutorialStartObjects(tutorialIndex);
 			displayBox.gameObject.SetActive(true);
@@ -217,35 +206,29 @@ public class UrGameController : MonoBehaviour
         }
     }
 
-    private void TutorialStartObjects(int i)
-    {
-        foreach (GameObject g in tutorial[i].turnOnAtStart)
-        {
+    private void TutorialStartObjects(int i) {
+        foreach (GameObject g in tutorial[i].turnOnAtStart) {
             g.SetActive(true);
         }
 
-        foreach (GameObject g in tutorial[i].turnOffAtStart)
-        {
+        foreach (GameObject g in tutorial[i].turnOffAtStart) {
             g.SetActive(false);
         }
     }
 
-    private void TutorialEndObjects(int i)
-    {
-        foreach (GameObject g in tutorial[i].turnOnAtEnd)
-        {
+    private void TutorialEndObjects(int i) {
+        foreach (GameObject g in tutorial[i].turnOnAtEnd) {
             g.SetActive(true);
         }
 
-        foreach (GameObject g in tutorial[i].turnOffAtEnd)
-        {
+        foreach (GameObject g in tutorial[i].turnOffAtEnd) {
             g.SetActive(false);
         }
     }
 
-    public void FinishTutorial()
-    {
+    public void FinishTutorial() {
         waitingForInput = false;
+		rollDiceButton.interactable = true;
 		StartCoroutine(displayBox.DoCloseMenu());
         turnText.text = "Turn " + turnCount;
     }
@@ -274,7 +257,6 @@ public class UrGameController : MonoBehaviour
 			if (piece != null) {
 				piece.ShowHighlight(false);
 			}
-
 		}
 	}
 
@@ -306,7 +288,7 @@ public class UrGameController : MonoBehaviour
 		isPlayerTurn = playerTurn;
 		allowPlayerMove = false;
 		dice.SetNumColor(isPlayerTurn);
-		dice.diceResultText.text = "-";
+		dice.diceResultText.text = "";
 		if (!isGameOver) {
 			rollDiceButton.gameObject.SetActive(isPlayerTurn);
             if (updateTurn) {
@@ -314,7 +296,6 @@ public class UrGameController : MonoBehaviour
                 turnText.text = "Turn " + turnCount;
             }
 		}
-
 
 		playerPathLine.SetActive(isPlayerTurn);
 		enemyPathLine.SetActive(!isPlayerTurn);
