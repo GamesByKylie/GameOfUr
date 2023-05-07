@@ -199,12 +199,15 @@ public class UrAIController : MonoBehaviour
 			}
 		}
 		if (potentialPieces.Count != 0) {
-			if (optimalMove || potentialPieces.Count == enemyPieces.Count) { //If there are no options but this move, take it regardless of difficulty
+			if (optimalMove || potentialPieces.Count == movablePieceList.Count) { //If there are no options but this move, take it regardless of difficulty
 				Debug.Log("At least one piece can land on a rosette, taking that move");
 				return potentialPieces.RandomElement();
 			} else {
 				Debug.Log("Enemy making a sub-optimal move other than landing on a rosette");
 				movablePieceList.RemoveAll(x => potentialPieces.Contains(x));
+				if(movablePieceList.Count == 0) {
+					Debug.LogWarning("All available moves would land on a rosette, but the system is trying to avoid that!");
+				}
 				return movablePieceList.RandomElement();
 			}
 		}
@@ -217,12 +220,15 @@ public class UrAIController : MonoBehaviour
 			}
 		}
 		if (potentialPieces.Count != 0) {
-			if (optimalMove || potentialPieces.Count == enemyPieces.Count) {
+			if (optimalMove || potentialPieces.Count == movablePieceList.Count) {
 				Debug.Log("At least one piece can move onto the board, taking that move");
 				return potentialPieces.RandomElement();
 			} else {
 				Debug.Log("Enemy making a sub-optimal move other than moving onto the board");
 				movablePieceList.RemoveAll(x => potentialPieces.Contains(x));
+				if (movablePieceList.Count == 0) {
+					Debug.LogWarning("All available moves would move a piece onto the board, but the system is trying to avoid that!");
+				}
 				return movablePieceList.RandomElement();
 			}
 		}

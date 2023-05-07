@@ -661,7 +661,7 @@ MonoBehaviour:
   modalBlocker: {fileID: 354699609}
   pauseMenuAnim: {fileID: 1066665118}
   bragToInsultRatio: 0.66
-  barkChance: 0.15
+  barkChance: 0.3
   rollDiceButton: {fileID: 1492511150}
   turnText: {fileID: 1191550139}
   alertText: {fileID: 224972504}
@@ -865,7 +865,7 @@ MonoBehaviour:
   noAnimWaitTime: 0.75
   noAnimSpinTime: 0.3
   availableMoveBaseWeight: 0.25
-  availableMoveWeightIncrease: 0.1
+  availableMoveWeightIncrease: 0.33
   diceResultText: {fileID: 1127306566}
   diceResultOutline: {fileID: 1127306565}
   playerResultColor: {r: 0.11231211, g: 0.10684408, b: 0.46226418, a: 0.5019608}

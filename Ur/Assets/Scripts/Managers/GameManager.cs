@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Text loadingText;
+	public AudioSource bgmSource;
 	public AudioSource sfxSource;
     public bool goToMainMenu = false;
 
@@ -43,6 +44,11 @@ public class GameManager : MonoBehaviour
             MasterCrewList = CSVLoader.LoadMasterCrewRoster();
             CSVLoader.LoadUrText();
             persistantScene = SceneManager.GetSceneByBuildIndex(0);
+			AudioSettings.OnAudioConfigurationChanged += deviceWasChanged => {
+				Debug.LogWarning($"Audio device change detected: {deviceWasChanged}");
+				bgmSource.Pause();
+				bgmSource.UnPause();
+			};
             if (goToMainMenu) {
                 LoadMainMenu();
             }

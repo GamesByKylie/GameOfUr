@@ -10,7 +10,7 @@ public class UrDiceRoller : MonoBehaviour
 	public float skipTurnWaitTime = 1.5f;
     public float noAnimWaitTime = 0.5f;
     public float noAnimSpinTime = 0.15f;
-	[Range(0f, 1f)] public float availableMoveBaseWeight = .25f;
+	[Range(0f, 1f)] public float availableMoveBaseWeight = 0.25f;
 	[Range(0f, 1f)] public float availableMoveWeightIncrease = 0.1f;
 	public Text diceResultText;
 	public Outline diceResultOutline;
@@ -32,8 +32,7 @@ public class UrDiceRoller : MonoBehaviour
 		diceResultOutline.effectColor = playerResultColor;
 	}
 
-	private IEnumerator RollAndRotate(Animator anim, string trigger)
-	{
+	private IEnumerator RollAndRotate(Animator anim, string trigger) {
 		//The reset trigger is needed so it goes back to idle for a frame and can then animate again
 		//But if it gets called at a certain point, it could stay triggered when we don't want it to
 		//which is why we call ResetTrigger
@@ -42,8 +41,7 @@ public class UrDiceRoller : MonoBehaviour
 		anim.transform.eulerAngles = new Vector3(0f, Random.Range(1f, 360f), 0f);
 		anim.SetTrigger(trigger);
 
-        if (diceSource.gameObject.activeSelf && SettingsManager.AnimationsEnabled)
-        {
+        if (diceSource.gameObject.activeSelf && SettingsManager.AnimationsEnabled) {
             diceSource.volume = SettingsManager.MasterVolume * SettingsManager.SFXVolume;
 		    diceSource.clip = diceSounds[Random.Range(0, diceSounds.Length)];
             diceSource.Play();
@@ -55,13 +53,11 @@ public class UrDiceRoller : MonoBehaviour
 		anim.transform.eulerAngles += Vector3.up * Random.Range(1f, 360f);
 	}
 
-	public int RollDice(bool playerTurn)
-	{
+	public int RollDice(bool playerTurn) {
 		//1 is a blank, 2 is a mark
 		int[] diceRolls = new int[diceModels.Length];
 
-		for (int i = 0; i < diceRolls.Length; i++) 
-		{
+		for (int i = 0; i < diceRolls.Length; i++) {
 			diceRolls[i] = Random.Range(1, 3);
 		}
 

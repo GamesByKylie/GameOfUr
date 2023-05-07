@@ -205,12 +205,12 @@ PrefabInstance:
     - target: {fileID: 2826745662789796339, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_Size
-      value: 0.11702052
+      value: 0.111625634
       objectReference: {fileID: 0}
     - target: {fileID: 2826745662789796339, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0.762
       objectReference: {fileID: 0}
     - target: {fileID: 2826745663182004440, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
@@ -255,7 +255,7 @@ PrefabInstance:
         Collaborator, Kennesaw State University, Assistant Professor of Computer
         Game Design and Development</indent>\r\n<b>David Herrod</b>\r\n<indent=5%>Student
         Game Design and Programmer, Kennesaw State University (2020)</indent>\r\n<b>Craig
-        Brasco</b>\n<indent = 5%>Visual Interface Collaborator, Kennesaw State University,
+        Brasco</b>\n<indent=5%>Visual Interface Collaborator, Kennesaw State University,
         Assistant Professor of Art | Graphic Communications</indent>\n\r\n<b><size=50>Historical
         Sources</size></b>\r\n\r\nBendlin, Andreas (Erfurt) and Hurschmann, Rolf
         (Hamburg), \u201CBoard games\u201D, in Brill\u2019s New Pauly, Antiquity
@@ -333,7 +333,7 @@ PrefabInstance:
     - target: {fileID: 2826745663611514714, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: 907.0565
       objectReference: {fileID: 0}
     - target: {fileID: 3725384054067136859, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}

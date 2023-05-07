@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3938d828d9b054488fa136faa659e5, type: 3}
   m_Name: Wenamun
   m_EditorClassIdentifier: 
-  characterIcon: {fileID: 21300000, guid: 7d098cc7449970b4dbfcf0147cde64f6, type: 3}
+  characterIcon: {fileID: 21300000, guid: 190c6ec0ae58f8d4f9305e1a290ac789, type: 3}
   characterName: Wenamun
-  subtitle: Priest of Amun
+  subtitle: Priest of Amun-Ra
   characterInfo: "In the fictional Story of Wenamun, set in the time of Pharaoh Ramesses
     XI (12 th - 11 th c BC),\r Wenamun, a priest of Amun at Karnack, traveled to
     Phoenician Byblos to obtain cedar wood for the boat of the\r god Amn. He is robbed,
