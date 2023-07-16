@@ -48,7 +48,7 @@ public class TitleScreenButtons : MenuButtons
 	}
 
 	private void EnableGameStart() {
-		if (GameManager.SelectedCharacter != null && GameManager.SelectedDifficulty != UrAIController.AIDifficulty.None) {
+		if (GameManager.SelectedCharacter != null) {
 			gameStartButton.interactable = true;
 		}
 	}
