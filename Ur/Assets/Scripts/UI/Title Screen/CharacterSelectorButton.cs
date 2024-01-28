@@ -7,6 +7,7 @@ public class CharacterSelectorButton : MonoBehaviour
 {
     public PlayableCharacter character;
     public Image portrait;
+	public Image portraitHolder;
     public Text nameText;
     public Text subtitleText;
 
@@ -14,6 +15,7 @@ public class CharacterSelectorButton : MonoBehaviour
 	
     private void Start() {
         portrait.sprite = character.characterIcon;
+		portraitHolder.sprite = character.characterIcon;
         nameText.text = character.characterName;
         subtitleText.text = character.subtitle;
 		tog = GetComponent<Toggle>();

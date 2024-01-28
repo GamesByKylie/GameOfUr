@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3938d828d9b054488fa136faa659e5, type: 3}
   m_Name: Enmerkar
   m_EditorClassIdentifier: 
-  characterIcon: {fileID: 21300000, guid: 9caee221cd6779f46a5b0dd85bb6a3cd, type: 3}
+  characterIcon: {fileID: 21300000, guid: 7e59f1adea2ec72479621ba3ce67e588, type: 3}
   characterName: Enmerkar
   subtitle: King of Uruk
   characterInfo: Enmerkar was an ancient Sumerian hero and the King of Uruk. He is

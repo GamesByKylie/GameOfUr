@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3938d828d9b054488fa136faa659e5, type: 3}
   m_Name: Wenamun
   m_EditorClassIdentifier: 
-  characterIcon: {fileID: 21300000, guid: 190c6ec0ae58f8d4f9305e1a290ac789, type: 3}
+  characterIcon: {fileID: 21300000, guid: 907c27ef785e1a349b1cebd49549809a, type: 3}
   characterName: Wenamun
   subtitle: Priest of Amun
   characterInfo: "In the fictional Story of Wenamun, set in the time of Pharaoh Ramesses
