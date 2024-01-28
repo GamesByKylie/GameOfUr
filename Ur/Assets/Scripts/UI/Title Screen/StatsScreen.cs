@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using TMPro;
+using UnityEngine.UI;
 
 [Serializable]
 public class StatBlock
 {
-	public TextMeshProUGUI easyText;
-	public TextMeshProUGUI mediumText;
-	public TextMeshProUGUI hardText;
+	public Text easyText;
+	public Text mediumText;
+	public Text hardText;
 }
 
 public class StatsScreen : MonoBehaviour
 {
 	public StatBlock totalGames;
 	public StatBlock wins;
-	public StatBlock losses;
 	public StatBlock shortest;
 	public StatBlock longest;
 
@@ -24,7 +23,6 @@ public class StatsScreen : MonoBehaviour
 	{
 		FillText(totalGames, SaveKeys.TotalGamesEasy, SaveKeys.TotalGamesMedium, SaveKeys.TotalGamesHard);
 		FillText(wins, SaveKeys.WinsEasy, SaveKeys.WinsMedium, SaveKeys.WinsHard);
-		FillText(losses, SaveKeys.LossesEasy, SaveKeys.LossesMedium, SaveKeys.LossesHard);
 		FillText(shortest, SaveKeys.ShortestEasy, SaveKeys.ShortestMedium, SaveKeys.ShortestHard);
 		FillText(longest, SaveKeys.LongestEasy, SaveKeys.LongestMedium, SaveKeys.LongestHard);
 	}
