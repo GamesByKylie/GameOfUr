@@ -99,7 +99,7 @@ public class MenuButtons : MonoBehaviour
         resolutionConfirmText.text = "Confirm? 1";
         yield return new WaitForSeconds(1);
         SettingsManager.ScreenResolution = previousResolution;
-        resolutionDropdown.value = previousResolution;
+        resolutionDropdown.SetValueWithoutNotify(previousResolution);
         resolutionConfirmButton.interactable = false;
         resolutionConfirmText.text = "";
     }
