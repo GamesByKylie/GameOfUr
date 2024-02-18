@@ -1277,7 +1277,7 @@ PrefabInstance:
     - target: {fileID: 3978561533375767031, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
       propertyPath: m_text
-      value: <color=black>SETTINGS</color>
+      value: SETTINGS
       objectReference: {fileID: 0}
     - target: {fileID: 6259590482026418050, guid: 983166625c2e5794987def9ec452f0aa,
         type: 3}
