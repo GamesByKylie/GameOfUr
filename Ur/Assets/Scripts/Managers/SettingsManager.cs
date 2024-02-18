@@ -24,16 +24,17 @@ public class SettingsManager : MonoBehaviour
 
     private static AudioSource bgmSource;
     private static Resolution[] supportedResolutions = new Resolution[] {
-        new Resolution{ width = 1920, height = 1080 },
-        new Resolution{ width = 2560, height = 1440 },
-        new Resolution{ width = 1366, height = 768 },
-        new Resolution{ width = 3840, height = 2160 },
-        new Resolution{ width = 1600, height = 900 },
-        new Resolution{ width = 3440, height = 1440 },
+        new Resolution{ width = 1280, height = 720 },
         new Resolution{ width = 1360, height = 768 },
+        new Resolution{ width = 1366, height = 768 },
+        new Resolution{ width = 1600, height = 900 },
+        new Resolution{ width = 1920, height = 1080 },
+        new Resolution{ width = 1920, height = 1200 },
         new Resolution{ width = 2560, height = 1600 },
+        new Resolution{ width = 2560, height = 1440 },
         new Resolution{ width = 2560, height = 1080 },
-        new Resolution{ width = 1920, height = 1200 }
+        new Resolution{ width = 3440, height = 1440 },
+        new Resolution{ width = 3840, height = 2160 }
         };
     private static List<Resolution> availableRes = new List<Resolution>();
 
