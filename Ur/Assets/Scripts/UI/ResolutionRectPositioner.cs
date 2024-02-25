@@ -7,8 +7,8 @@ using System;
 public class PositionedRectTransform
 {
 	public RectTransform rect;
-	public Vector2 normalAnchor;
-	public Vector2 wideAnchor;
+	public Vector2 normalPos;
+	public Vector2 widePos;
 }
 
 public class ResolutionRectPositioner : MonoBehaviour
@@ -37,19 +37,15 @@ public class ResolutionRectPositioner : MonoBehaviour
 
 		if (aspect >= wideAspect) {
 			foreach(var prt in positionedObjs) {
-				prt.rect.anchorMax = prt.wideAnchor;
-				prt.rect.anchorMin = prt.wideAnchor;
-
-				prt.rect.anchoredPosition = Vector2.zero;
+				prt.rect.anchoredPosition = prt.widePos;
 			}
 		} else {
 			foreach(var prt in positionedObjs) {
-				prt.rect.anchorMax = prt.normalAnchor;
-				prt.rect.anchorMin = prt.normalAnchor;
-
-				prt.rect.anchoredPosition = Vector2.zero;
+				prt.rect.anchoredPosition = prt.normalPos;
 			}
 		}
+
+		Canvas.ForceUpdateCanvases();
 	}
 
 

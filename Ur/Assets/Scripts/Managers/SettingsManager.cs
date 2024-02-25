@@ -147,7 +147,8 @@ public class SettingsManager : MonoBehaviour
         set {
             screenResolution = Mathf.Clamp(value, 0, availableRes.Count - 1);
             Screen.SetResolution(availableRes[screenResolution].width, availableRes[screenResolution].height, fullscreen);
-            MenuButtons.ResolutionChanged?.Invoke();
+			Canvas.ForceUpdateCanvases();
+			MenuButtons.ResolutionChanged?.Invoke();
             PlayerPrefs.SetInt(SaveKeys.ScreenResolution, value);
         }
     }
@@ -168,6 +169,7 @@ public class SettingsManager : MonoBehaviour
             fullscreen = value;
             PlayerPrefs.SetString(SaveKeys.FullscreenEnabled, value.ToString());
             Screen.fullScreen = value;
+			Canvas.ForceUpdateCanvases();
             MenuButtons.ResolutionChanged?.Invoke();
             Screen.fullScreenMode = value ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
         }
